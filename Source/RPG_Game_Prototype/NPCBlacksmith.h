@@ -3,24 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "Interactable.h"
-#include "BaseCharacter.generated.h"
+#include "BaseCharacter.h"
+#include "NPCBlacksmith.generated.h"
 
+/**
+ * 
+ */
 UCLASS()
-class RPG_GAME_PROTOTYPE_API ABaseCharacter : public ACharacter , public IInteractable 
+class RPG_GAME_PROTOTYPE_API ANPCBlacksmith : public ABaseCharacter
 {
 	GENERATED_BODY()
-
-public:
-	// Sets default values for this character's properties
-	ABaseCharacter();
-
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual void Interact() override;
