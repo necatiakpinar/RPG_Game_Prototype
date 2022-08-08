@@ -7,6 +7,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "DrawDebugHelpers.h"
 #include "MyPlayer.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -15,6 +16,7 @@
 AMyPlayer::AMyPlayer()
 {
 	InitializeMovement();
+	traceDistance = 2000;
 }
 
 void AMyPlayer::BeginPlay()
@@ -57,3 +59,24 @@ void AMyPlayer::InitializeMovement()
 												   // are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
+void AMyPlayer::TraceForward_Implementation()
+{
+	FVector location;
+	FRotator rotation;
+	FHitResult hit;
+
+	GetController()->GetPlayerViewPoint(location, rotation);
+
+	FVector start = location;
+	FVector end = start + (rotation.Vector() * traceDistance);
+	FCollisionQueryParams traceParams;
+
+	bool bHit = GetWorld()->LineTraceSingleByChannel(hit, start, end, ECC_Visibility, traceParams);
+	DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 2.0f);
+
+	if (bHit)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Hitting!"));
+	}
+
+}

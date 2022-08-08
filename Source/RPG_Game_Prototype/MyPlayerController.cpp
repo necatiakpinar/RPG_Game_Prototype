@@ -29,21 +29,17 @@ void AMyPlayerController::SetupInputComponent()
 	Super::SetupInputComponent();
 	InputComponent->BindAction("Jump", IE_Pressed, this, &AMyPlayerController::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &AMyPlayerController::StopJumping);
-
+	InputComponent->BindAction("Interact", IE_Pressed, this, &AMyPlayerController::InteractPressed);
 	InputComponent->BindAxis("MoveForward", this, &AMyPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AMyPlayerController::MoveRight);
-
-	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
-	// "turn" handles devices that provide an absolute delta, such as a mouse.
-	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
 	InputComponent->BindAxis("Turn", this, &AMyPlayerController::AddControllerYawInput);
 	InputComponent->BindAxis("TurnRate", this, &AMyPlayerController::TurnAtRate);
 	InputComponent->BindAxis("LookUp", this, &AMyPlayerController::AddControllerPitchInput);
 	InputComponent->BindAxis("LookUpRate", this, &AMyPlayerController::LookUpAtRate);
-
-	//// handle touch devices
 	InputComponent->BindTouch(IE_Pressed, this, &AMyPlayerController::TouchStarted);
 	InputComponent->BindTouch(IE_Released, this, &AMyPlayerController::TouchStopped);
+
+
 }
 
 void AMyPlayerController::Jump()
@@ -114,4 +110,10 @@ void AMyPlayerController::MoveRight(float Value)
 		// add movement in that direction
 		player->AddMovementInput(Direction, Value);
 	}
+}
+
+
+void AMyPlayerController::InteractPressed()
+{
+	player->TraceForward_Implementation();
 }

@@ -2,7 +2,7 @@
 
 
 #include "BaseCharacter.h"
-
+#include "DrawDebugHelpers.h"
 // Sets default values
 ABaseCharacter::ABaseCharacter()
 {
@@ -27,4 +27,6 @@ void ABaseCharacter::Tick(float DeltaTime)
 void ABaseCharacter::Interact()
 {
 }
+
+
 
