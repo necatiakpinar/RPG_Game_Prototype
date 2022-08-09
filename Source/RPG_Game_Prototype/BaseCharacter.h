@@ -18,6 +18,7 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction") float traceDistance;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health") float health;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -26,7 +27,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual void Interact() override;
-
-
-
+	
 };

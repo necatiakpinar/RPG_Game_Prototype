@@ -18,4 +18,6 @@ void ANPCBlacksmith::Tick(float DeltaTime)
 
 void ANPCBlacksmith::Interact()
 {
+	Super::Interact();
+	Destroy();
 }

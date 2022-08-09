@@ -20,6 +20,9 @@ class RPG_GAME_PROTOTYPE_API AMyPlayer : public ABaseCharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UInventoryComponent* inventory;
+
 public:
 	AMyPlayer();
 	void InitializeMovement();
@@ -39,5 +42,9 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	UFUNCTION(BlueprintCallable, Category = "Items") 
+	void UseItem(class UItem* pItem);
+
 };
 

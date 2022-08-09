@@ -27,6 +27,3 @@ void ABaseCharacter::Tick(float DeltaTime)
 void ABaseCharacter::Interact()
 {
 }
-
-
-

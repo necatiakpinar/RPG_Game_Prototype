@@ -1,5 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+#include "MyPlayer.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -8,15 +9,17 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "DrawDebugHelpers.h"
-#include "MyPlayer.h"
-
-//////////////////////////////////////////////////////////////////////////
-// AMyPlayer
+#include "Items/Item.h"
+#include "Items/InventoryComponent.h"
 
 AMyPlayer::AMyPlayer()
 {
 	InitializeMovement();
 	traceDistance = 2000;
+	health = 1000.f;
+
+	inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
+	inventory->capacity = 20;
 }
 
 void AMyPlayer::BeginPlay()
@@ -76,7 +79,23 @@ void AMyPlayer::TraceForward_Implementation()
 
 	if (bHit)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hitting!"));
+		if (hit.GetActor())
+		{
+			IInteractable* interactableObject = Cast<IInteractable>(hit.GetActor());
+			if (interactableObject)
+			{
+				interactableObject->Interact();
+			}
+		}
 	}
 
+}
+
+void AMyPlayer::UseItem(UItem* pItem)
+{
+	if (pItem)
+	{
+		pItem->Use(this);
+		pItem->OnUse(this); //BP Event
+	}
 }
