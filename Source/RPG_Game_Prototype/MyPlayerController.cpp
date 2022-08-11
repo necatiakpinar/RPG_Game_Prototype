@@ -17,6 +17,8 @@ void AMyPlayerController::BeginPlay()
 		Possess(player);	
 	else
 	UE_LOG(LogTemp, Error, TEXT("Your player is NULL !"));
+
+//	bShowMouseCursor = true;
 }
 
 void AMyPlayerController::Tick(float DeltaTime)
