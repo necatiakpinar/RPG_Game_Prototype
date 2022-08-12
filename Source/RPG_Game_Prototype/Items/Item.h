@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Item.generated.h"
 
+class AMyPlayer;
 
 UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
 class RPG_GAME_PROTOTYPE_API UItem : public UObject
@@ -39,7 +40,7 @@ public:
 	UPROPERTY() class UInventoryComponent* owningInventory;
 
 public:
-	virtual void Use(class AMyPlayer* pCharacter) PURE_VIRTUAL(UItem, );
+	virtual void Use(class AMyPlayer* pCharacter);
 
 	virtual class UWorld* GetWorld() const { return world; };
 	

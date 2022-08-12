@@ -6,8 +6,11 @@
 
 void UFoodItem::Use(AMyPlayer* pCharacter)
 {
+	Super::Use(pCharacter);
+
 	if (pCharacter)
 	{
 		pCharacter->health += healthToHeal;
 	}
 }
+
