@@ -2,6 +2,7 @@
 
 
 #include "FoodItem.h"
+#include "InventoryComponent.h"
 #include "RPG_Game_Prototype/MyPlayer.h"
 
 void UFoodItem::Use(AMyPlayer* pCharacter)
@@ -11,6 +12,11 @@ void UFoodItem::Use(AMyPlayer* pCharacter)
 	if (pCharacter)
 	{
 		pCharacter->health += healthToHeal;
+
+		if (owningInventory)
+		{
+			owningInventory->RemoveItem(this);
+		}
 	}
 }
 
