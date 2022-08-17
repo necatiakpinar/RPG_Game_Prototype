@@ -19,6 +19,8 @@ public:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction") float traceDistance;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health") float health;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes") bool isProning;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes") bool isReloading;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
