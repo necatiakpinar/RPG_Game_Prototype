@@ -7,6 +7,8 @@
 #include "Interactable.h"
 #include "BaseCharacter.generated.h"
 
+class ABaseWeapon;
+
 UCLASS()
 class RPG_GAME_PROTOTYPE_API ABaseCharacter : public ACharacter , public IInteractable 
 {
@@ -21,9 +23,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health") float health;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes") bool isProning;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes") bool isReloading;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes") bool isShooting;
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class UWeaponHandlerComponent* weaponHandler;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<ABaseWeapon> weaponBP;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void InitializeWeapons();
 
 public:	
 	// Called every frame

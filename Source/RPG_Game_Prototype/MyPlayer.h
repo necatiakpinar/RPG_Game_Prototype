@@ -23,6 +23,7 @@ class RPG_GAME_PROTOTYPE_API AMyPlayer : public ABaseCharacter
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UInventoryComponent* inventory;
 
+
 public:
 	AMyPlayer();
 	void InitializeMovement();
