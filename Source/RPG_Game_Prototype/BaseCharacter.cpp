@@ -11,21 +11,20 @@ ABaseCharacter::ABaseCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	weaponHandler = CreateDefaultSubobject<UWeaponHandlerComponent>("WeaponHandler");
 }
 
 // Called when the game starts or when spawned
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	weaponHandler = Cast<UWeaponHandlerComponent>(GetComponentByClass(UWeaponHandlerComponent::StaticClass()));
 	InitializeWeapons();
 }
 
 void ABaseCharacter::InitializeWeapons()
 {
-	if (weaponBP)
+	if (weaponBP && weaponHandler)
 	{
-
 		FTransform socketTransform = GetMesh()->GetSocketTransform(FName("hand_r_weapon_socket"));
 		ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(weaponBP, socketTransform);
 		weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_weapon_socket"));

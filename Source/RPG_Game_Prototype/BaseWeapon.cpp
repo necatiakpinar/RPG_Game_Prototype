@@ -8,7 +8,6 @@ ABaseWeapon::ABaseWeapon()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -17,6 +16,7 @@ void ABaseWeapon::BeginPlay()
 	Super::BeginPlay();
 	currentAmmo = totalAmmo;
 	currentMagazineAmmo = magazineCapacity;
+	canShoot = true; // Characters can shoot at the beginning.
 	
 }
 
@@ -29,14 +29,14 @@ void ABaseWeapon::Tick(float DeltaTime)
 
 void ABaseWeapon::Shoot()
 {
-	if (currentAmmo > 0)
+	if (canShoot  && currentAmmo > 0)
 	{
 		currentAmmo--;
 		
 		if (currentMagazineAmmo > 0 )
 			currentMagazineAmmo--;
 
-		if (currentMagazineAmmo == 0)
+		if (currentMagazineAmmo == 0 && currentAmmo > 0)
 			ReloadAmmo();
 	}
 	
@@ -50,9 +50,12 @@ void ABaseWeapon::Shoot()
 
 void ABaseWeapon::ReloadAmmo()
 {
-	if (currentAmmo > magazineCapacity)
-		currentMagazineAmmo = magazineCapacity; 
-	else
-		currentMagazineAmmo = currentAmmo; //Remaining ammo
+	if (canShoot)
+	{
+		if (currentAmmo > magazineCapacity)
+			currentMagazineAmmo = magazineCapacity; 
+		else
+			currentMagazineAmmo = currentAmmo; //Remaining ammo
+	}
 }
 

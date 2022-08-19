@@ -8,8 +8,8 @@
 
 
 class ABaseWeapon;
-
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+class ABaseCharacter;
+UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class RPG_GAME_PROTOTYPE_API UWeaponHandlerComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -26,6 +26,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ABaseWeapon* activeWeapon;
 		
+private:
+	FTimerManager* timerManager;
+	FTimerHandle timerHandler;
+	UWorld* world;
+	ABaseCharacter* owner;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -38,6 +43,10 @@ public:
 	UFUNCTION()
 		void AssignWeapon(ABaseWeapon* pWeapon);
 	UFUNCTION(BlueprintCallable)
-		void Shoot();
-		
+		void StartShooting();
+	UFUNCTION(BlueprintCallable)
+		void StopShooting();
+
+	void StartShoot();
+	void StopShoot();
 };

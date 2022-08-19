@@ -25,6 +25,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 currentMagazineAmmo;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float rateOfFire;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool canShoot;
 protected:
 	// Called when the game starts or when spawned

@@ -18,6 +18,7 @@ void UInventoryComponent::BeginPlay()
 	{
 		AddItem(item);
 	}
+	UE_LOG(LogTemp, Warning, TEXT("TEST"));
 }
 
 void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

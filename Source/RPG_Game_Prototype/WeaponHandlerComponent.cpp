@@ -2,7 +2,10 @@
 
 
 #include "WeaponHandlerComponent.h"
+#include "GameFramework/Actor.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "BaseWeapon.h"
+#include "BaseCharacter.h"
 
 // Sets default values for this component's properties
 UWeaponHandlerComponent::UWeaponHandlerComponent()
@@ -10,7 +13,7 @@ UWeaponHandlerComponent::UWeaponHandlerComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
+	capacity = 1; 
 }
 
 
@@ -18,7 +21,8 @@ UWeaponHandlerComponent::UWeaponHandlerComponent()
 void UWeaponHandlerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	world = GetWorld();
+	owner = Cast<ABaseCharacter>(GetOwner());
 }
 
 
@@ -48,12 +52,42 @@ void UWeaponHandlerComponent::AssignWeapon(ABaseWeapon* pWeapon)
 	SetActiveWeapon(0);
 }
 
-void UWeaponHandlerComponent::Shoot()
+void UWeaponHandlerComponent::StartShooting()
 {
 	if (activeWeapon)
-		activeWeapon->Shoot();
-
+	{
+		world->GetTimerManager().SetTimer(timerHandler, this, &UWeaponHandlerComponent::StartShoot, activeWeapon->rateOfFire, true, 0.0f);
+	}
 }
+void UWeaponHandlerComponent::StopShooting()
+{
+	world->GetTimerManager().ClearTimer(timerHandler);
+	StopShoot();
+}
+
+void UWeaponHandlerComponent::StartShoot()
+{
+	if (activeWeapon)
+	{
+		if (activeWeapon->canShoot)
+		{
+			owner->isShooting = true;
+			activeWeapon->Shoot();
+			UE_LOG(LogTemp, Warning, TEXT("SHOOTING!"));
+		}
+		else
+			owner->isShooting = false;
+	}
+}
+
+void UWeaponHandlerComponent::StopShoot()
+{
+	owner->isShooting = false;
+	world->GetTimerManager().ClearTimer(timerHandler);
+}
+
+
+
 
 
 
