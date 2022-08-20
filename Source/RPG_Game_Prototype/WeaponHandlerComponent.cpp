@@ -65,28 +65,47 @@ void UWeaponHandlerComponent::StopShooting()
 	StopShoot();
 }
 
+
 void UWeaponHandlerComponent::StartShoot()
 {
 	if (activeWeapon)
 	{
 		if (activeWeapon->canShoot)
 		{
-			owner->isShooting = true;
+			owner->AttributesBoolean.isShooting = true;
+			SetWalkingSpeedToShootingSpeed();
 			activeWeapon->Shoot();
 			UE_LOG(LogTemp, Warning, TEXT("SHOOTING!"));
 		}
 		else
-			owner->isShooting = false;
+			owner->AttributesBoolean.isShooting = false;
 	}
 }
 
 void UWeaponHandlerComponent::StopShoot()
 {
-	owner->isShooting = false;
+	owner->AttributesBoolean.isShooting= false;
+	SetWalkingSpeedToNormal();
 	world->GetTimerManager().ClearTimer(timerHandler);
 }
 
+void UWeaponHandlerComponent::StartReloading()
+{
+}
 
+void UWeaponHandlerComponent::EndReloading()
+{
+}
+
+void UWeaponHandlerComponent::SetWalkingSpeedToShootingSpeed()
+{
+	owner->SetWalkSpeed(owner->Attributes.shootingMovementSpeed);
+}
+
+void UWeaponHandlerComponent::SetWalkingSpeedToNormal()
+{
+	owner->SetWalkSpeed(owner->Attributes.movementSpeed);
+}
 
 
 

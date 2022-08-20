@@ -25,7 +25,8 @@ public:
 		TArray <ABaseWeapon*> weaponList;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ABaseWeapon* activeWeapon;
-		
+
+
 private:
 	FTimerManager* timerManager;
 	FTimerHandle timerHandler;
@@ -46,7 +47,14 @@ public:
 		void StartShooting();
 	UFUNCTION(BlueprintCallable)
 		void StopShooting();
+	UFUNCTION(BlueprintCallable)
+		void StartReloading();
+	UFUNCTION(BlueprintCallable)
+		void EndReloading();
 
 	void StartShoot();
 	void StopShoot();
+
+	void SetWalkingSpeedToShootingSpeed();
+	void SetWalkingSpeedToNormal();
 };

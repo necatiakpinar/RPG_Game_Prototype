@@ -10,6 +10,41 @@
 class ABaseWeapon;
 class UWeaponHandlerComponent;
 
+
+USTRUCT(BlueprintType)
+struct FAttributes
+{
+	GENERATED_BODY()
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+			float health;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+			float movementSpeed;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+			float shootingMovementSpeed;
+
+	/*	FORCEINLINE FAttributes();
+
+		FORCEINLINE FAttributes::FAttributes()
+		{
+		}*/
+};
+
+USTRUCT(BlueprintType)
+struct FAttributesBoolean
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
+		bool isShooting;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
+		bool isReloading;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
+		bool isProning;
+};
+
+
+
 UCLASS()
 class RPG_GAME_PROTOTYPE_API ABaseCharacter : public ACharacter , public IInteractable 
 {
@@ -20,19 +55,17 @@ public:
 	ABaseCharacter();
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FAttributes Attributes;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FAttributesBoolean AttributesBoolean;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction") float traceDistance;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health") float health;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes") bool isProning;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes") bool isReloading;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes") bool isShooting;
 
 public:
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	//	UWeaponHandlerComponent* weaponHandler;
 	UPROPERTY(EditAnywhere, Category = "Blueprints")
 		TSubclassOf<ABaseWeapon> weaponBP;
 	UPROPERTY(EditAnywhere, Category = "Blueprints")
 		TSubclassOf<UWeaponHandlerComponent> weaponHandlerBP;
+	UPROPERTY(EditAnywhere, Category = "Animations")
+		UAnimMontage* ReloadAM;
 
 private:
 	UWeaponHandlerComponent* weaponHandler;
@@ -41,10 +74,13 @@ protected:
 	virtual void BeginPlay() override;
 
 	void InitializeWeapons();
+	void InitializeComponents();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual void Interact() override;
-	
+	void  SetWalkSpeed(float pWalkSpeed);
+	void  PlayReloadAnimation();
 };
+

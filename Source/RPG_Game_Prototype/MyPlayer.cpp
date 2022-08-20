@@ -16,8 +16,7 @@ AMyPlayer::AMyPlayer()
 {
 	InitializeMovement();
 	traceDistance = 2000;
-	health = 1000.f;
-
+	Attributes.health = 1000.f;
 	inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
 	inventory->capacity = 20;
 }
@@ -25,6 +24,7 @@ AMyPlayer::AMyPlayer()
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
 }
 
 void AMyPlayer::InitializeMovement()
@@ -42,6 +42,7 @@ void AMyPlayer::InitializeMovement()
 	bUseControllerRotationRoll = false;
 
 	// Configure character movement
+	//GetCharacterMovement()->MaxWalkSpeed = 10.0f
 	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f); // ...at this rotation rate
 	GetCharacterMovement()->JumpZVelocity = 600.f;
@@ -53,13 +54,13 @@ void AMyPlayer::InitializeMovement()
 	CameraBoom->TargetArmLength = 300.0f; // The camera follows at this distance behind the character	
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
-												// Create a follow camera
+	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-												   // Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
-												   // are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
+	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
 void AMyPlayer::TraceForward_Implementation()

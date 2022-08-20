@@ -11,7 +11,7 @@ void UFoodItem::Use(AMyPlayer* pCharacter)
 
 	if (pCharacter)
 	{
-		pCharacter->health += healthToHeal;
+		pCharacter->Attributes.health += healthToHeal;
 
 		if (owningInventory)
 		{

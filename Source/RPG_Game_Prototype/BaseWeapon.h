@@ -28,6 +28,11 @@ public:
 		float rateOfFire;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool canShoot;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool isReloading;
+private:
+	FTimerHandle timerHandler;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

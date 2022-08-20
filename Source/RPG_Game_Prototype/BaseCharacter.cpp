@@ -5,6 +5,8 @@
 #include "DrawDebugHelpers.h"
 #include "WeaponHandlerComponent.h"
 #include "BaseWeapon.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Animation/AnimMontage.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -17,10 +19,15 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	weaponHandler = Cast<UWeaponHandlerComponent>(GetComponentByClass(UWeaponHandlerComponent::StaticClass()));
+	InitializeComponents(); 
 	InitializeWeapons();
 }
 
+void ABaseCharacter::InitializeComponents()
+{
+	weaponHandler = Cast<UWeaponHandlerComponent>(GetComponentByClass(UWeaponHandlerComponent::StaticClass()));
+	
+}
 void ABaseCharacter::InitializeWeapons()
 {
 	if (weaponBP && weaponHandler)
@@ -38,9 +45,22 @@ void ABaseCharacter::InitializeWeapons()
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+//	UE_LOG(LogTemp, Warning, TEXT("%f"), ReloadAM->GetPlayLength());
 
 }
 
 void ABaseCharacter::Interact()
 {
+
+}
+
+void ABaseCharacter::SetWalkSpeed(float pWalkSpeed)
+{
+	GetCharacterMovement()->MaxWalkSpeed = pWalkSpeed;
+}
+
+void ABaseCharacter::PlayReloadAnimation()
+{
+	PlayAnimMontage(ReloadAM);
+	
 }

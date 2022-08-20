@@ -17,6 +17,7 @@ void ABaseWeapon::BeginPlay()
 	currentAmmo = totalAmmo;
 	currentMagazineAmmo = magazineCapacity;
 	canShoot = true; // Characters can shoot at the beginning.
+	isReloading = false;
 	
 }
 
@@ -29,7 +30,7 @@ void ABaseWeapon::Tick(float DeltaTime)
 
 void ABaseWeapon::Shoot()
 {
-	if (canShoot  && currentAmmo > 0)
+	if (canShoot  && currentAmmo > 0 && !isReloading)
 	{
 		currentAmmo--;
 		
@@ -37,7 +38,10 @@ void ABaseWeapon::Shoot()
 			currentMagazineAmmo--;
 
 		if (currentMagazineAmmo == 0 && currentAmmo > 0)
+		{
+			isReloading = true;
 			ReloadAmmo();
+		}
 	}
 	
 	if (currentAmmo == 0)
