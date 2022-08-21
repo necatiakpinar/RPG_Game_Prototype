@@ -39,8 +39,13 @@ struct FAttributesBoolean
 		bool isShooting;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
 		bool isReloading;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool isWeaponDrawn;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool isAiming;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
 		bool isProning;
+
 };
 
 

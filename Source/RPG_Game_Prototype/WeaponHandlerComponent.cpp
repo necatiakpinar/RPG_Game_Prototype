@@ -47,7 +47,10 @@ void UWeaponHandlerComponent::SetActiveWeapon(int32 pWeaponIndex)
 void UWeaponHandlerComponent::AssignWeapon(ABaseWeapon* pWeapon)
 {
 	if (weaponList.Num() < capacity)
+	{
 		weaponList.Add(pWeapon);
+		pWeapon->OnReload.AddDynamic(this,&UWeaponHandlerComponent::StartReloading);
+	}
 
 	SetActiveWeapon(0);
 }
@@ -91,6 +94,8 @@ void UWeaponHandlerComponent::StopShoot()
 
 void UWeaponHandlerComponent::StartReloading()
 {
+//	UE_LOG(LogTemp, Warning, TEXT("LOKKASPOR"));
+	owner->PlayReloadAnimation();
 }
 
 void UWeaponHandlerComponent::EndReloading()

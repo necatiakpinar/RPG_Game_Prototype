@@ -40,7 +40,9 @@ void ABaseWeapon::Shoot()
 		if (currentMagazineAmmo == 0 && currentAmmo > 0)
 		{
 			isReloading = true;
-			ReloadAmmo();
+			canShoot = false;
+			OnReload.Broadcast();
+			GetWorld()->GetTimerManager().SetTimer(timerHandler,this, &ABaseWeapon::ReloadAmmo, reloadTime, false);
 		}
 	}
 	
@@ -54,12 +56,13 @@ void ABaseWeapon::Shoot()
 
 void ABaseWeapon::ReloadAmmo()
 {
-	if (canShoot)
-	{
-		if (currentAmmo > magazineCapacity)
-			currentMagazineAmmo = magazineCapacity; 
-		else
-			currentMagazineAmmo = currentAmmo; //Remaining ammo
-	}
+	if (currentAmmo > magazineCapacity)
+		currentMagazineAmmo = magazineCapacity; 
+	else
+		currentMagazineAmmo = currentAmmo; //Remaining ammo
+
+	UE_LOG(LogTemp, Warning, TEXT("GIRDI!"));
+	canShoot = true;
+	isReloading = false;
 }
 

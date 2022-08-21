@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "BaseWeapon.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReload);
+
+
 UCLASS()
 class RPG_GAME_PROTOTYPE_API ABaseWeapon : public AActor
 {
@@ -27,9 +31,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float rateOfFire;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float reloadTime;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool canShoot;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool isReloading;
+
+	FOnReload OnReload;
 private:
 	FTimerHandle timerHandler;
 
