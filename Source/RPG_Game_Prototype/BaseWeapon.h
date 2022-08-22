@@ -9,6 +9,9 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReload);
 
+class ABaseProjectile;
+class USceneComponent;
+class UStaticMeshComponent;
 
 UCLASS()
 class RPG_GAME_PROTOTYPE_API ABaseWeapon : public AActor
@@ -37,6 +40,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool isReloading;
 
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+		TSubclassOf<ABaseProjectile> projectile;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		 UStaticMeshComponent * mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		 USceneComponent* muzzleLocation;
+		
 	FOnReload OnReload;
 private:
 	FTimerHandle timerHandler;
@@ -48,6 +58,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void Shoot();
+	void Shoot(FRotator pSpawnRotation);
 	void ReloadAmmo();
 };

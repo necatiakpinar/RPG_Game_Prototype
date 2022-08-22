@@ -2,12 +2,22 @@
 
 
 #include "BaseWeapon.h"
+#include "BaseProjectile.h"
+#include "Components/SceneComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 ABaseWeapon::ABaseWeapon()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	mesh->SetOnlyOwnerSee(true);
+	mesh->bCastDynamicShadow = false;
+	mesh->CastShadow = false;
+
+	muzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("Muzzle"));
+	muzzleLocation->SetupAttachment(mesh);
 }
 
 // Called when the game starts or when spawned
@@ -25,13 +35,20 @@ void ABaseWeapon::BeginPlay()
 void ABaseWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
-void ABaseWeapon::Shoot()
+void ABaseWeapon::Shoot(FRotator pSpawnRotation)
 {
 	if (canShoot  && currentAmmo > 0 && !isReloading)
 	{
+		FRotator spawnRotation = pSpawnRotation;
+		FVector spawnLocation = (muzzleLocation) ? muzzleLocation->GetComponentLocation() : FVector(0.0f);
+
+		FActorSpawnParameters actorSpawnParams;
+		actorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+		
+		GetWorld()->SpawnActor<ABaseProjectile>(projectile, spawnLocation, spawnRotation, actorSpawnParams);
+			
 		currentAmmo--;
 		
 		if (currentMagazineAmmo > 0 )
@@ -51,7 +68,7 @@ void ABaseWeapon::Shoot()
 		canShoot = false;
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("CURRENT AMMO = %d , CURRENT MAGAZINE = %d "), currentAmmo, currentMagazineAmmo);
+	//UE_LOG(LogTemp, Warning, TEXT("CURRENT AMMO = %d , CURRENT MAGAZINE = %d "), currentAmmo, currentMagazineAmmo);
 }
 
 void ABaseWeapon::ReloadAmmo()
@@ -61,7 +78,6 @@ void ABaseWeapon::ReloadAmmo()
 	else
 		currentMagazineAmmo = currentAmmo; //Remaining ammo
 
-	UE_LOG(LogTemp, Warning, TEXT("GIRDI!"));
 	canShoot = true;
 	isReloading = false;
 }

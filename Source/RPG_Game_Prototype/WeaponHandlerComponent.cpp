@@ -77,7 +77,9 @@ void UWeaponHandlerComponent::StartShoot()
 		{
 			owner->AttributesBoolean.isShooting = true;
 			SetWalkingSpeedToShootingSpeed();
-			activeWeapon->Shoot();
+			FRotator spawnRotation = owner->GetControlRotation();
+			//FVector spawnLocation = 
+			activeWeapon->Shoot(spawnRotation);
 			UE_LOG(LogTemp, Warning, TEXT("SHOOTING!"));
 		}
 		else
