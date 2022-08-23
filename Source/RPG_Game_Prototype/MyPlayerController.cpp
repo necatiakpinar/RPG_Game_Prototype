@@ -72,6 +72,40 @@ void AMyPlayerController::TurnAtRate(float Rate)
 void AMyPlayerController::AddControllerYawInput(float Rate)
 {
 	player->AddControllerYawInput(Rate);
+	
+	UE_LOG(LogTemp, Warning, TEXT("Rate %d"), Rate);
+	
+	if (player->GetVelocity().Length() == 0)
+	{
+		if (Rate > 0.3f)
+		{
+			player->turnRight = true;
+			player->turnLeft = false;
+		}
+		else
+		{
+			player->turnRight = false;
+		}
+
+		if (Rate < -0.3f)
+		{
+			player->turnLeft = true;
+			player->turnRight = false;
+		}
+		else
+		{
+			player->turnLeft = false;
+		}
+
+	}
+	else
+	{
+		player->turnRight = false;
+		player->turnLeft = false;
+	}
+
+
+
 }
 
 void AMyPlayerController::AddControllerPitchInput(float Rate)

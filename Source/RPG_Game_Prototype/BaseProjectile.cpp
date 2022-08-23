@@ -46,5 +46,7 @@ void ABaseProjectile::Tick(float DeltaTime)
 
 void ABaseProjectile::OnHit(UPrimitiveComponent* pHitComp, AActor* pOtherActor, UPrimitiveComponent* pOtherComp, int32 pOtherBodyIndex, bool bFromSweep, const FHitResult& hit)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Projectile hit!"));
+	if (pHitComp)
+		UE_LOG(LogTemp, Warning, TEXT("%s"),*pOtherActor->GetActorNameOrLabel());
+	
 }
