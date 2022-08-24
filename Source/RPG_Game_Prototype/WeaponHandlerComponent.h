@@ -32,6 +32,7 @@ private:
 	FTimerHandle timerHandler;
 	UWorld* world;
 	ABaseCharacter* owner;
+	float test;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
