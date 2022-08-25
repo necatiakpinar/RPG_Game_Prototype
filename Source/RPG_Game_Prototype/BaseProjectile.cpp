@@ -2,6 +2,7 @@
 
 
 #include "BaseProjectile.h"
+#include "Damageable.h"
 
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -46,7 +47,15 @@ void ABaseProjectile::Tick(float DeltaTime)
 
 void ABaseProjectile::OnHit(UPrimitiveComponent* pHitComp, AActor* pOtherActor, UPrimitiveComponent* pOtherComp, int32 pOtherBodyIndex, bool bFromSweep, const FHitResult& hit)
 {
-	if (pHitComp)
+	if (pOtherActor)
+	{
+		IDamageable* damageablObject = Cast<IDamageable>(hit.GetActor());
+		if (damageablObject)
+		{
+			damageablObject->TakeDamage(50.0f);
+		}
+
+	}
 		UE_LOG(LogTemp, Warning, TEXT("%s"),*pOtherActor->GetActorNameOrLabel());
 	
 }

@@ -19,8 +19,14 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	InitializeAttributes();
 	InitializeComponents(); 
 	InitializeWeapons();
+}
+
+void  ABaseCharacter::InitializeAttributes()
+{
+	Attributes.currentHealth = Attributes.health;
 }
 
 void ABaseCharacter::InitializeComponents()
@@ -52,6 +58,23 @@ void ABaseCharacter::Tick(float DeltaTime)
 void ABaseCharacter::Interact()
 {
 
+}
+
+void ABaseCharacter::TakeDamage(float pDamageTaken)
+{
+	if (Attributes.currentHealth > 0)
+	{
+		Attributes.currentHealth -= pDamageTaken;
+
+		if (Attributes.currentHealth <= 0)
+			Die();
+	}
+
+}
+
+void ABaseCharacter::Die()
+{
+	AActor::Destroy();
 }
 
 void ABaseCharacter::SetWalkSpeed(float pWalkSpeed)

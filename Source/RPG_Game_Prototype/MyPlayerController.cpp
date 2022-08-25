@@ -73,8 +73,6 @@ void AMyPlayerController::AddControllerYawInput(float Rate)
 {
 	player->AddControllerYawInput(Rate);
 	
-	UE_LOG(LogTemp, Warning, TEXT("Rate %d"), Rate);
-	
 	if (player->GetVelocity().Length() == 0)
 	{
 		if (Rate > 0.3f)

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Interactable.h"
+#include "Damageable.h"
 #include "BaseCharacter.generated.h"
 
 class ABaseWeapon;
@@ -22,6 +23,8 @@ struct FAttributes
 			float movementSpeed;
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
 			float shootingMovementSpeed;
+
+		float currentHealth;
 
 	/*	FORCEINLINE FAttributes();
 
@@ -51,7 +54,7 @@ struct FAttributesBoolean
 
 
 UCLASS()
-class RPG_GAME_PROTOTYPE_API ABaseCharacter : public ACharacter , public IInteractable 
+class RPG_GAME_PROTOTYPE_API ABaseCharacter : public ACharacter , public IInteractable, public IDamageable
 {
 	GENERATED_BODY()
 
@@ -78,6 +81,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void InitializeAttributes();
 	void InitializeWeapons();
 	void InitializeComponents();
 
@@ -85,6 +89,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual void Interact() override;
+	virtual void TakeDamage(float pTakeDamage) override;
+	virtual void Die() override;
 	void  SetWalkSpeed(float pWalkSpeed);
 	void  PlayReloadAnimation();
 };
