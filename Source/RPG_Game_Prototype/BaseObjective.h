@@ -5,20 +5,15 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Enums.h"
-#include "Quest.generated.h"
+#include "BaseObjective.generated.h"
 
-// USTRUCT(BlueprintType)
-// struct FObjective
-// {
-// 	GENERATED_BODY()
-//
-// };
 
-class UBaseObjective;
 UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
-class RPG_GAME_PROTOTYPE_API UQuest : public UObject
+class RPG_GAME_PROTOTYPE_API UBaseObjective : public UObject
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere)
-	TArray<TSubclassOf<UBaseObjective>> objectiveList;
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		EObjectiveType objectiveType;
 };

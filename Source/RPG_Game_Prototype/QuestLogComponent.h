@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Enums.h"
 #include "QuestLogComponent.generated.h"
 
-
+class UQuest;
 UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class RPG_GAME_PROTOTYPE_API UQuestLogComponent : public UActorComponent
 {
@@ -16,6 +17,11 @@ public:
 	// Sets default values for this component's properties
 	UQuestLogComponent();
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TArray<TSubclassOf<UQuest>> questList;
+	//TArray<UQuest> questInstanceList;
+// private:
+// 	 UQuest* activeQuest;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -23,6 +29,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	void InitializeQuests();
+	EObjectiveType GetCurrentObjectiveType();
 		
 };

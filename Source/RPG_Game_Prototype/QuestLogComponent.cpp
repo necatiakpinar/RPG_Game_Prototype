@@ -15,20 +15,35 @@ UQuestLogComponent::UQuestLogComponent()
 
 
 // Called when the game starts
+
 void UQuestLogComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
+	InitializeQuests();
 	
+}
+
+void UQuestLogComponent::InitializeQuests()
+{
+	
+	// if (questList.Num() > 0)
+	// {
+	// 	activeQuest = questList[0];
+	// }
 }
 
 
 // Called every frame
+
 void UQuestLogComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+EObjectiveType UQuestLogComponent::GetCurrentObjectiveType()
+{
+	return EObjectiveType::None;
 }
 
