@@ -24,6 +24,7 @@ void ABaseCharacter::BeginPlay()
 	InitializeWeapons();
 }
 
+#define print TEXT("LOKKA");
 void  ABaseCharacter::InitializeAttributes()
 {
 	Attributes.currentHealth = Attributes.health;
@@ -32,7 +33,7 @@ void  ABaseCharacter::InitializeAttributes()
 void ABaseCharacter::InitializeComponents()
 {
 	weaponHandler = Cast<UWeaponHandlerComponent>(GetComponentByClass(UWeaponHandlerComponent::StaticClass()));
-	
+
 }
 void ABaseCharacter::InitializeWeapons()
 {
@@ -74,6 +75,11 @@ void ABaseCharacter::TakeDamage(float pDamageTaken)
 
 void ABaseCharacter::Die()
 {
+	TArray<AActor*> attachedActors;
+	GetAttachedActors(attachedActors);
+	for (int i = 0; i < attachedActors.Num(); i++)
+		attachedActors[i]->Destroy();
+
 	AActor::Destroy();
 }
 

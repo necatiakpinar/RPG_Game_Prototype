@@ -41,16 +41,9 @@ void ABaseWeapon::Shoot(FRotator pSpawnRotation)
 {
 	if (canShoot  && currentAmmo > 0 && !isReloading)
 	{
-		FRotator spawnRotation = pSpawnRotation;
-		FVector spawnLocation = (muzzleLocation) ? muzzleLocation->GetComponentLocation() : FVector(0.0f);
-
-		FActorSpawnParameters actorSpawnParams;
-		actorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-		
-		GetWorld()->SpawnActor<ABaseProjectile>(projectile, spawnLocation, spawnRotation, actorSpawnParams);
-			
+		SpawnProjectile(pSpawnRotation);
 		currentAmmo--;
-		
+	
 		if (currentMagazineAmmo > 0 )
 			currentMagazineAmmo--;
 
@@ -69,6 +62,17 @@ void ABaseWeapon::Shoot(FRotator pSpawnRotation)
 	}
 
 	//UE_LOG(LogTemp, Warning, TEXT("CURRENT AMMO = %d , CURRENT MAGAZINE = %d "), currentAmmo, currentMagazineAmmo);
+}
+
+void ABaseWeapon::SpawnProjectile(const FRotator& pSpawnRotation)
+{
+	FRotator spawnRotation = pSpawnRotation;
+	FVector spawnLocation = (muzzleLocation) ? muzzleLocation->GetComponentLocation() : FVector(0.0f);
+	FActorSpawnParameters actorSpawnParams;
+	actorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+	ABaseProjectile* spawnedProjectile = GetWorld()->SpawnActor<ABaseProjectile>(projectile, spawnLocation, spawnRotation, actorSpawnParams);
+	spawnedProjectile->Initialize(damage);
+
 }
 
 void ABaseWeapon::ReloadAmmo()

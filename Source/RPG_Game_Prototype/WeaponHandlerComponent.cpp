@@ -80,7 +80,6 @@ void UWeaponHandlerComponent::StartShoot()
 			FRotator spawnRotation = owner->GetControlRotation();
 			//FVector spawnLocation = 
 			activeWeapon->Shoot(spawnRotation);
-			UE_LOG(LogTemp, Warning, TEXT("SHOOTING!"));
 		}
 		else
 			owner->AttributesBoolean.isShooting = false;

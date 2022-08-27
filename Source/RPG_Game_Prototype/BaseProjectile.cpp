@@ -23,9 +23,6 @@ ABaseProjectile::ABaseProjectile()
 	projectileMovementComponent->MaxSpeed = 3000.0f;
 	projectileMovementComponent->bRotationFollowsVelocity = true;
 	projectileMovementComponent->bShouldBounce = true;
-
-	InitialLifeSpan = 3.0f;
-
 }
 
 
@@ -41,9 +38,12 @@ void ABaseProjectile::BeginPlay()
 void ABaseProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
+void ABaseProjectile::Initialize(float pDamage)
+{
+	damage = pDamage;
+}
 
 void ABaseProjectile::OnHit(UPrimitiveComponent* pHitComp, AActor* pOtherActor, UPrimitiveComponent* pOtherComp, int32 pOtherBodyIndex, bool bFromSweep, const FHitResult& hit)
 {
@@ -52,10 +52,10 @@ void ABaseProjectile::OnHit(UPrimitiveComponent* pHitComp, AActor* pOtherActor, 
 		IDamageable* damageablObject = Cast<IDamageable>(hit.GetActor());
 		if (damageablObject)
 		{
-			damageablObject->TakeDamage(50.0f);
+			damageablObject->TakeDamage(damage);
 		}
 
 	}
-		UE_LOG(LogTemp, Warning, TEXT("%s"),*pOtherActor->GetActorNameOrLabel());
+	//	UE_LOG(LogTemp, Warning, TEXT("%s"),*pOtherActor->GetActorNameOrLabel());
 	
 }

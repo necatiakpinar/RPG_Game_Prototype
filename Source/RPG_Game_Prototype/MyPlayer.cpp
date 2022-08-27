@@ -11,14 +11,15 @@
 #include "DrawDebugHelpers.h"
 #include "Items/Item.h"
 #include "Items/InventoryComponent.h"
+#include "QuestLogComponent.h"
 
 AMyPlayer::AMyPlayer()
 {
 	InitializeMovement();
 	traceDistance = 2000;
 	Attributes.health = 1000.f;
-	inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
-	inventory->capacity = 20;
+	inventoryComponent = CreateDefaultSubobject<UInventoryComponent>("Inventory");
+	inventoryComponent->capacity = 20;
 }
 
 void AMyPlayer::BeginPlay()

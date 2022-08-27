@@ -20,15 +20,16 @@ public:
 		class USphereComponent* collisionSphere;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
 		class UProjectileMovementComponent* projectileMovementComponent;
+private:
+	float damage;
 
 public:
+	void Initialize(float pDamage);
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* pHitComp, AActor* pOtherActor,
 			UPrimitiveComponent* pOtherComp, int32 pOtherBodyIndex,
 			bool bFromSweep, const FHitResult& hit);
 
-	UPROPERTY(EditAnywhere)
-		float damage;
 
 protected:
 	// Called when the game starts or when spawned

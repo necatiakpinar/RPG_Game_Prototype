@@ -36,6 +36,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float reloadTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float damage;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool canShoot;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool isReloading;
@@ -59,5 +61,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void Shoot(FRotator pSpawnRotation);
+	void SpawnProjectile(const FRotator& pSpawnRotation);
 	void ReloadAmmo();
 };

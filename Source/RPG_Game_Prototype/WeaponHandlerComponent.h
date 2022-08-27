@@ -9,7 +9,7 @@
 
 class ABaseWeapon;
 class ABaseCharacter;
-UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class RPG_GAME_PROTOTYPE_API UWeaponHandlerComponent : public UActorComponent
 {
 	GENERATED_BODY()
