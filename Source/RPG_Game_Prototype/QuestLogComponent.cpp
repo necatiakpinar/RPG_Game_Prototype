@@ -2,7 +2,8 @@
 
 
 #include "QuestLogComponent.h"
-
+#include "MyUtils.h"
+#include "Quest.h"
 // Sets default values for this component's properties
 UQuestLogComponent::UQuestLogComponent()
 {
@@ -20,7 +21,22 @@ void UQuestLogComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	InitializeQuests();
+if (questList.Num() > 0)
+{
+	activeQuest = questList[0];
+	if (activeQuest)
+	{
+		
+		//print(-1,5.0f,UMyUtils::GetEnumValue(static_cast<uint8>(activeQuest->objective.objectiveType),"EObjectiveType"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ACTIVE QUEST IS FUCKING NULL !"));
+	}
 	
+	UMyUtils::Test();
+}
+
 }
 
 void UQuestLogComponent::InitializeQuests()

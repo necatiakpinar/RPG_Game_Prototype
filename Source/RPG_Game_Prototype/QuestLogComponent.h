@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Enums.h"
+#include "Macros.h"
 #include "QuestLogComponent.generated.h"
 
 class UQuest;
@@ -18,10 +19,10 @@ public:
 	UQuestLogComponent();
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	TArray<TSubclassOf<UQuest>> questList;
+	TArray<UQuest*> questList;
 	//TArray<UQuest> questInstanceList;
-// private:
-// 	 UQuest* activeQuest;
+private:
+	 UQuest* activeQuest;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
