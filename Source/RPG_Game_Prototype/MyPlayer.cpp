@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "MyPlayer.h"
+#include "MyUtils.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -12,6 +13,7 @@
 #include "Items/Item.h"
 #include "Items/InventoryComponent.h"
 #include "QuestLogComponent.h"
+#include "Quest.h"
 
 AMyPlayer::AMyPlayer()
 {
@@ -26,7 +28,42 @@ void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	TArray<UActorComponent*> components;
+	GetComponents(components);
+	for (auto component : components)
+	{
+		if (UQuestLogComponent* QuestLogComponent = Cast<UQuestLogComponent>(component))
+		{
+			questLogComponentImplemented = QuestLogComponent;
+		}
+	}
+	
+	//GetComponentOfActor(*questLogComponentImplemented);
+	//UE_LOG(LogTemp, Warning, TEXT("%d"),components.Num());
+	//
+	// if (questLogComponentImplemented)
+	// {
+	// 	print(-1,5.0f,UMyUtils::GetEnumValue((uint8)(questLogComponentImplemented->activeQuest->objective.objectiveType),"EObjectiveType"));
+	// }
+	
+		
 }
+
+void AMyPlayer::GetComponentOfActor(UQuestLogComponent* pActorComponent)
+{
+	TArray<UActorComponent*> components;
+	GetComponents(components);
+	for (auto component : components)
+	{
+		if (UQuestLogComponent* targetComponent = Cast<UQuestLogComponent>(component))
+		{
+	//s		print(-1,5.0f,"lokkacinoo");
+			pActorComponent = targetComponent;
+		}
+	}
+}
+
+
 
 void AMyPlayer::InitializeMovement()
 {

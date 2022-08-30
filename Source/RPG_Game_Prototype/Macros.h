@@ -6,4 +6,5 @@
 
 #define print(Key, Time, Message) if (GEngine) GEngine->AddOnScreenDebugMessage(Key, Time, FColor::Red, Message)
 
+#define PRINT_CONSOLE(TEXT) UE_LOG(LogTemp, Warning, TEXT);
 

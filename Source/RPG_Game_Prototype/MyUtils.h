@@ -13,6 +13,5 @@ class RPG_GAME_PROTOTYPE_API UMyUtils : public UObject
 	GENERATED_BODY()
 
 public:
-	static void Test();
 	static FString GetEnumValue(uint8 pEnum, FString pEnumName);
 };

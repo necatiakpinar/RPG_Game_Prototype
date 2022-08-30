@@ -6,11 +6,11 @@
 #include "GameFramework/Character.h"
 #include "Interactable.h"
 #include "Damageable.h"
+#include "QuestLogComponent.h"
 #include "BaseCharacter.generated.h"
 
 class ABaseWeapon;
 class UWeaponHandlerComponent;
-
 
 USTRUCT(BlueprintType)
 struct FAttributes
@@ -74,7 +74,6 @@ public:
 		TSubclassOf<UWeaponHandlerComponent> weaponHandlerBP;
 	UPROPERTY(EditAnywhere, Category = "Animations")
 		UAnimMontage* ReloadAM;
-
 private:
 	UWeaponHandlerComponent* weaponHandler;
 protected:

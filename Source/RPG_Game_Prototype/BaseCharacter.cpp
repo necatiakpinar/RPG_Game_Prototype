@@ -24,7 +24,6 @@ void ABaseCharacter::BeginPlay()
 	InitializeWeapons();
 }
 
-#define print TEXT("LOKKA");
 void  ABaseCharacter::InitializeAttributes()
 {
 	Attributes.currentHealth = Attributes.health;

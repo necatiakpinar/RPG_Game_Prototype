@@ -7,11 +7,12 @@
 #include "BaseCharacter.h"
 #include "MyPlayer.generated.h"
 
+
 UCLASS(config=Game)
 class RPG_GAME_PROTOTYPE_API AMyPlayer : public ABaseCharacter
 {
 	GENERATED_BODY()
-
+public:
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
@@ -20,8 +21,10 @@ class RPG_GAME_PROTOTYPE_API AMyPlayer : public ABaseCharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components , meta = (AllowPrivateAccess = "true"))
 	class UInventoryComponent* inventoryComponent;
+	
+	class UQuestLogComponent* questLogComponentImplemented;
 public:
 	AMyPlayer();
 	void InitializeMovement();
@@ -30,11 +33,11 @@ public:
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
-	float BaseTurnRate;
+		float BaseTurnRate;
 
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
-	float BaseLookUpRate;
+		float BaseLookUpRate;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		bool turnRight;
@@ -49,6 +52,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Items") 
 	void UseItem(class UItem* pItem);
+	void GetComponentOfActor(UQuestLogComponent* pActorComponent);
 
 };
 

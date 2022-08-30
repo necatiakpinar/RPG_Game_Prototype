@@ -4,17 +4,14 @@
 #include "MyUtils.h"
 #include "Enums.h"
 
-void UMyUtils::Test()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Static func"));
-}
 
 FString UMyUtils::GetEnumValue(uint8 pEnum, FString pEnumName)
 {
-	const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("EObjestiveType"), true);
+	UE_LOG(LogTemp, Warning, TEXT("Enum value => %d"),pEnum);
+	const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, *pEnumName, true);
 	FString enumValue;
 	if (EnumPtr)
 		enumValue = EnumPtr->GetDisplayNameTextByValue((pEnum)).ToString();
-
+	
 	return enumValue;
 }

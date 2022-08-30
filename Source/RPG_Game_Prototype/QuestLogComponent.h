@@ -9,7 +9,9 @@
 #include "QuestLogComponent.generated.h"
 
 class UQuest;
-UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+class UFoodItem;
+UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent),
+	DefaultToInstanced)
 class RPG_GAME_PROTOTYPE_API UQuestLogComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -19,9 +21,8 @@ public:
 	UQuestLogComponent();
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	TArray<UQuest*> questList;
-	//TArray<UQuest> questInstanceList;
-private:
+		TArray<UQuest*> questList;
+	
 	 UQuest* activeQuest;
 protected:
 	// Called when the game starts
