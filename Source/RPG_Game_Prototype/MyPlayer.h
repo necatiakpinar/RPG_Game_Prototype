@@ -23,11 +23,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components , meta = (AllowPrivateAccess = "true"))
 	class UInventoryComponent* inventoryComponent;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components , meta = (AllowPrivateAccess = "true"))
 	class UQuestLogComponent* questLogComponentImplemented;
 public:
 	AMyPlayer();
 	void InitializeMovement();
+	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
 	void TraceForward_Implementation();
 

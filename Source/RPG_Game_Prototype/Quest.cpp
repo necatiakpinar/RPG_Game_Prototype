@@ -16,6 +16,7 @@ void UQuest::InitializeObjectives()
 		objectiveList[i].isObjectiveFinished = false; //Later on I will connect this with save system... witch respect to save system it will update itself.
 		if (objectiveList[i].isObjectiveFinished)
 			finishedObjectivesAmount++;
+		
 	}
 
 	if (finishedObjectivesAmount >= objectiveList.Num())

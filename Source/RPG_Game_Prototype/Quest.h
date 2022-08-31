@@ -27,6 +27,9 @@ struct FObjective //Later on, update this FObjective struct...
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		uint8 targetAmount;
 
+	UPROPERTY(BlueprintReadOnly)
+		FString objectiveDescription;
+	
 };
 
 class UBaseObjective;

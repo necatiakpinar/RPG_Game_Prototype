@@ -91,5 +91,4 @@ void ABaseCharacter::PlayReloadAnimation()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Reload animation duration = %f"), ReloadAM->GetPlayLength());
 	PlayAnimMontage(ReloadAM);
-	
 }

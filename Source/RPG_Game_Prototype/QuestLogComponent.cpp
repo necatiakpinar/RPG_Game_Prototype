@@ -33,15 +33,7 @@ void UQuestLogComponent::InitializeQuests()
 	}
 }
 
-
 void UQuestLogComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
 }
-
-EObjectiveType UQuestLogComponent::GetCurrentObjectiveType()
-{
-	return EObjectiveType::None;
-}
-

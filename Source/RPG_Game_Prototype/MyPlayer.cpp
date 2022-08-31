@@ -22,21 +22,30 @@ AMyPlayer::AMyPlayer()
 	Attributes.health = 1000.f;
 	inventoryComponent = CreateDefaultSubobject<UInventoryComponent>("Inventory");
 	inventoryComponent->capacity = 20;
+
+
+}
+
+void AMyPlayer::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	questLogComponentImplemented = FindComponentByClass<UQuestLogComponent>();
+
 }
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TArray<UActorComponent*> components;
-	GetComponents(components);
-	for (auto component : components)
-	{
-		if (UQuestLogComponent* QuestLogComponent = Cast<UQuestLogComponent>(component))
-		{
-			questLogComponentImplemented = QuestLogComponent;
-		}
-	}
+	// TArray<UActorComponent*> components;
+	// GetComponents(components);
+	// for (auto component : components)
+	// {
+	// 	if (UQuestLogComponent* QuestLogComponent = Cast<UQuestLogComponent>(component))
+	// 	{
+	// 		questLogComponentImplemented = QuestLogComponent;
+	// 	}
+	// }
 	
 	//GetComponentOfActor(*questLogComponentImplemented);
 	//UE_LOG(LogTemp, Warning, TEXT("%d"),components.Num());
@@ -48,6 +57,7 @@ void AMyPlayer::BeginPlay()
 	
 		
 }
+
 
 void AMyPlayer::GetComponentOfActor(UQuestLogComponent* pActorComponent)
 {
