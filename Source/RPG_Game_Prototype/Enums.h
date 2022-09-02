@@ -11,3 +11,11 @@ enum class EObjectiveType : uint8
 	Kill UMETA(DisplayName = "KILL"),
 	Collect UMETA(DisplayName = "COLLECT")
 };
+
+UENUM(BlueprintType)
+enum class EEnemyType : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Melee UMETA(DisplayName = "MELEE"),
+	Ranged UMETA(DisplayName = "RANGED")
+};

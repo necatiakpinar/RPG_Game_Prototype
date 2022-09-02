@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BaseCharacter.h"
+#include "Enums.h"
 #include "Enemy.generated.h"
 
 
@@ -15,8 +16,10 @@ class RPG_GAME_PROTOTYPE_API AEnemy : public ABaseCharacter
 	GENERATED_BODY()
 
 public:
+	//UPROPERTY(Transient)
 	AMyPlayer* player;
-
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	EEnemyType enemyType;
 private:
 	FTimerHandle timerHandler;
 

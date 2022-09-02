@@ -8,8 +8,10 @@
 #include "Items/Item.h"
 #include "Quest.generated.h"
 
-class AEnemy;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnObjectiveUpdated);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnObjectiveFinished,int,ObjectivedIndex);
 
+class AEnemy;
 USTRUCT(BlueprintType)
 struct FObjective //Later on, update this FObjective struct...
 {
@@ -26,10 +28,8 @@ struct FObjective //Later on, update this FObjective struct...
 		bool isObjectiveFinished;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		uint8 targetAmount;
-
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 		FString objectiveDescription;
-	
 };
 
 class UBaseObjective;
@@ -42,11 +42,21 @@ public:
 	TArray<FObjective> objectiveList;
 	bool isQuestFinished;
 
+public:
+	UPROPERTY(BlueprintAssignable)
+	FOnObjectiveUpdated OnObjectiveUpdated;
+	UPROPERTY(BlueprintAssignable)
+	FOnObjectiveFinished OnObjectiveFinished;
+
 
 public:
 	void InitializeObjectives();
 	void UpdateQuest();
 	void UpdateObjectives(int objectiveIndex, AEnemy* pEnemy = nullptr, UItem* pItem = nullptr);
+	UFUNCTION(BlueprintCallable)
+	FObjective GetObjective(int pObjectiveIndex);
+	UFUNCTION(BlueprintCallable)
+	FString GetObjectiveDescription(int pObjectiveIndex);
 	void ObjectiveFinished(int objectiveIndex);
 	void QuestFinished();
 	

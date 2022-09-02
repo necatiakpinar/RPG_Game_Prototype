@@ -26,10 +26,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 	FOnInventoryUpdated OnInventoryUpdated;
+
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Items")
 	TArray<class UItem*> items;
-
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -39,5 +39,4 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	bool AddItem(class UItem* pItem);
 	bool RemoveItem(class UItem* pItem);
-		
 };

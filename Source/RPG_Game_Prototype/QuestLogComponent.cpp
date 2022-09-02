@@ -4,32 +4,44 @@
 #include "MyUtils.h"
 #include "Items/FoodItem.h"
 #include "Quest.h"
+#include "Enemy.h"
+#include "Items/Item.h"
+
 // Sets default values for this component's properties
 UQuestLogComponent::UQuestLogComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+
+void UQuestLogComponent::OnComponentCreated()
+{
+	InitializeQuests();
+}
+
 // Called when the game starts
 void UQuestLogComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	InitializeQuests();
+	
 }
 
 void UQuestLogComponent::InitializeQuests()
 {
 	if (questList.Num() > 0)
 	{
-		activeQuest = questList[0];
-		if (activeQuest)
+		for (int i = 0; i < questList.Num(); ++i)
 		{
-			activeQuest->InitializeObjectives();
+			questList[i]->InitializeObjectives();
 		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Active quest is null!"));
-		}
+	}
+}
+
+void UQuestLogComponent::UpdateQuests(int objectiveIndex, AEnemy* pEnemy, UItem* pItem)
+{
+	for (int i = 0; i < questList.Num(); ++i)
+	{
+		questList[i]->UpdateObjectives(objectiveIndex,pEnemy,pItem);
 	}
 }
 
@@ -37,3 +49,4 @@ void UQuestLogComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
+

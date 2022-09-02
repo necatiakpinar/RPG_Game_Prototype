@@ -95,7 +95,6 @@ void UWeaponHandlerComponent::StopShoot()
 
 void UWeaponHandlerComponent::StartReloading()
 {
-//	UE_LOG(LogTemp, Warning, TEXT("LOKKASPOR"));
 	owner->PlayReloadAnimation();
 }
 

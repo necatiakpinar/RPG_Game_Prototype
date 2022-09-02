@@ -10,6 +10,9 @@
 
 class UQuest;
 class UFoodItem;
+class AEnemy;
+class UItem;
+
 UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent),
 	DefaultToInstanced)
 class RPG_GAME_PROTOTYPE_API UQuestLogComponent : public UActorComponent
@@ -20,17 +23,17 @@ public:
 	// Sets default values for this component's properties
 	UQuestLogComponent();
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Instanced)
 		TArray<UQuest*> questList;
-	
-	 UQuest* activeQuest;
+
 protected:
-	// Called when the game starts
+	virtual void OnComponentCreated() override;
 	virtual void BeginPlay() override;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void InitializeQuests();
+	void UpdateQuests(int objectiveIndex, AEnemy* pEnemy = nullptr, UItem* pItem = nullptr);
 
 };
