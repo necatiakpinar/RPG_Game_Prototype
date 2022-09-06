@@ -9,7 +9,7 @@
 #include "Quest.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnObjectiveUpdated);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnObjectiveFinished,int,ObjectivedIndex);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnObjectiveFinished,int, QuestIndex, int,ObjectivedIndex);
 
 class AEnemy;
 USTRUCT(BlueprintType)
@@ -40,6 +40,10 @@ class RPG_GAME_PROTOTYPE_API UQuest : public UObject
 public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TArray<FObjective> objectiveList;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int questIndex;
+
+	UPROPERTY(Transient)
 	bool isQuestFinished;
 
 public:
@@ -57,7 +61,7 @@ public:
 	FObjective GetObjective(int pObjectiveIndex);
 	UFUNCTION(BlueprintCallable)
 	FString GetObjectiveDescription(int pObjectiveIndex);
-	void ObjectiveFinished(int objectiveIndex);
+	void ObjectiveFinished(int pQuestIndex, int pObjectiveIndex);
 	void QuestFinished();
 	
 };

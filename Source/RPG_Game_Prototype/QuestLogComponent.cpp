@@ -37,7 +37,7 @@ void UQuestLogComponent::InitializeQuests()
 	}
 }
 
-void UQuestLogComponent::UpdateQuests(int objectiveIndex, AEnemy* pEnemy, UItem* pItem)
+void UQuestLogComponent::UpdateQuests(int objectiveIndex, AEnemy* pEnemy, UItem* pItem) 
 {
 	for (int i = 0; i < questList.Num(); ++i)
 	{

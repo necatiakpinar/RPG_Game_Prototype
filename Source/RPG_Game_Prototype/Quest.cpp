@@ -51,7 +51,7 @@ void UQuest::UpdateObjectives(int objectiveIndex, AEnemy* pEnemy, UItem* pItem)
 					// 	objectiveList[i].targetAmount));
 
 					if (objectiveList[i].targetAmount <= 0)
-						ObjectiveFinished(objectiveList[i].objectiveIndex);
+						ObjectiveFinished(questIndex,objectiveList[i].objectiveIndex);
 					else
 					{
 						OnObjectiveUpdated.Broadcast();
@@ -79,7 +79,7 @@ FString UQuest::GetObjectiveDescription(int pObjectiveIndex)
 {
 	if (pObjectiveIndex < 0 || pObjectiveIndex > objectiveList.Num() - 1)
 	{
-		print(-1,3.0f,TEXT("Objective index is not valid!"));
+		print(-1, 3.0f, TEXT("Objective index is not valid!"));
 		return FString();
 	}
 	
@@ -87,16 +87,15 @@ FString UQuest::GetObjectiveDescription(int pObjectiveIndex)
 		
 }
 
-void UQuest::ObjectiveFinished(int objectiveIndex)
+void UQuest::ObjectiveFinished(int pQuestIndex, int pObjectiveIndex)
 {
 	int finishedObjectivesAmount = 0;
 	for (int i = 0; i < objectiveList.Num(); ++i)
 	{
-		if (i == objectiveIndex)
+		if (i == pObjectiveIndex)
 		{
 			objectiveList[i].isObjectiveFinished = true;
-			print(-1,5.0f,TEXT("Girdi"));
-			OnObjectiveFinished.Broadcast(objectiveIndex);
+			OnObjectiveFinished.Broadcast(pQuestIndex, pObjectiveIndex);
 		}
 	
 		if (objectiveList[i].isObjectiveFinished)
