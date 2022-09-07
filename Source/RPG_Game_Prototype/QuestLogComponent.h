@@ -12,6 +12,7 @@ class UQuest;
 class UFoodItem;
 class AEnemy;
 class UItem;
+class UUserWidget;
 
 UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent),
 	DefaultToInstanced)
@@ -23,6 +24,8 @@ public:
 	// Sets default values for this component's properties
 	UQuestLogComponent();
 
+	// UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	// 	UUserWidget* widgetQuestLog;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Instanced)
 		TArray<UQuest*> questList;
 
@@ -36,4 +39,6 @@ public:
 	void InitializeQuests();
 	void UpdateQuests(int objectiveIndex, AEnemy* pEnemy = nullptr, UItem* pItem = nullptr);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateObjectiveHUD(int pObjectiveID);
 };

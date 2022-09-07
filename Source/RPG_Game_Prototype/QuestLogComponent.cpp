@@ -6,7 +6,7 @@
 #include "Quest.h"
 #include "Enemy.h"
 #include "Items/Item.h"
-
+#include "Blueprint/UserWidget.h"
 // Sets default values for this component's properties
 UQuestLogComponent::UQuestLogComponent()
 {
@@ -42,6 +42,7 @@ void UQuestLogComponent::UpdateQuests(int objectiveIndex, AEnemy* pEnemy, UItem*
 	for (int i = 0; i < questList.Num(); ++i)
 	{
 		questList[i]->UpdateObjectives(objectiveIndex,pEnemy,pItem);
+		UpdateObjectiveHUD(objectiveIndex);
 	}
 }
 

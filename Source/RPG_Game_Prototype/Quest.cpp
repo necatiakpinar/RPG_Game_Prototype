@@ -95,7 +95,7 @@ void UQuest::ObjectiveFinished(int pQuestIndex, int pObjectiveIndex)
 		if (i == pObjectiveIndex)
 		{
 			objectiveList[i].isObjectiveFinished = true;
-			OnObjectiveFinished.Broadcast(pQuestIndex, pObjectiveIndex);
+			OnObjectiveFinished.Broadcast(pQuestIndex, pObjectiveIndex) ;
 		}
 	
 		if (objectiveList[i].isObjectiveFinished)
