@@ -16,13 +16,13 @@ UQuestLogComponent::UQuestLogComponent()
 
 void UQuestLogComponent::OnComponentCreated()
 {
-	InitializeQuests();
 }
 
 // Called when the game starts
 void UQuestLogComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	InitializeQuests();
 	
 }
 
@@ -34,6 +34,8 @@ void UQuestLogComponent::InitializeQuests()
 		{
 			questList[i]->InitializeObjectives();
 		}
+		
+		UpdateQuests(-1); //Update HUD at the beginning!
 	}
 }
 

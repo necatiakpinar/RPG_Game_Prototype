@@ -42,19 +42,22 @@ void UQuest::UpdateObjectives(int objectiveIndex, AEnemy* pEnemy, UItem* pItem)
 		{
 			if(!objectiveList[i].isObjectiveFinished)
 			{
-				if (pEnemy->GetClass() == objectiveList[i].enemyType)
+				if (pEnemy != nullptr)
 				{
-					objectiveList[i].targetAmount--;
-					objectiveList[i].objectiveDescription = FString::FromInt(objectiveList[i].targetAmount).
-					Append(" " + UMyUtils::GetEnumValue((uint8)pEnemy->enemyType,"EEnemyType").ToLower() + " Enemy");
-					// print(-1,5.0f,FString::Printf(TEXT("Got you motherfucker! There is %d enemy left to finish this quest!"),
-					// 	objectiveList[i].targetAmount));
-
-					if (objectiveList[i].targetAmount <= 0)
-						ObjectiveFinished(questIndex,objectiveList[i].objectiveIndex);
-					else
+					if (pEnemy->GetClass() == objectiveList[i].enemyType)
 					{
-						OnObjectiveUpdated.Broadcast();
+						objectiveList[i].targetAmount--;
+						objectiveList[i].objectiveDescription = FString::FromInt(objectiveList[i].targetAmount).
+						Append(" " + UMyUtils::GetEnumValue((uint8)pEnemy->enemyType,"EEnemyType").ToLower() + " Enemy");
+						// print(-1,5.0f,FString::Printf(TEXT("Got you motherfucker! There is %d enemy left to finish this quest!"),
+						// 	objectiveList[i].targetAmount));
+
+						if (objectiveList[i].targetAmount <= 0)
+							ObjectiveFinished(questIndex,objectiveList[i].objectiveIndex);
+						else
+						{
+							OnObjectiveUpdated.Broadcast();
+						}
 					}
 				}
 			}
