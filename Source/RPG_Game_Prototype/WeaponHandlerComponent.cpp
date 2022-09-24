@@ -77,13 +77,15 @@ void UWeaponHandlerComponent::StartShoot()
 		{
 			owner->AttributesBoolean.isShooting = true;
 			SetWalkingSpeedToShootingSpeed();
-			FRotator spawnRotation = owner->GetControlRotation();
-			//FVector spawnLocation = 
-			activeWeapon->Shoot(spawnRotation);
+			// FRotator spawnRotation = owner->GetControlRotation();
+			owner->TraceForward_Implementation();
+			FVector crossHairLocation = owner->crossHairLocation;
+			activeWeapon->Shoot(crossHairLocation);
 		}
 		else
 			owner->AttributesBoolean.isShooting = false;
 	}
+	
 }
 
 void UWeaponHandlerComponent::StopShoot()

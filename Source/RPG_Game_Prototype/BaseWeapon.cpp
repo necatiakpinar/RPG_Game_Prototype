@@ -5,6 +5,7 @@
 #include "BaseProjectile.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ABaseWeapon::ABaseWeapon()
@@ -37,11 +38,11 @@ void ABaseWeapon::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABaseWeapon::Shoot(FRotator pSpawnRotation)
+void ABaseWeapon::Shoot(FVector pCrossHairLocation)
 {
 	if (canShoot  && currentAmmo > 0 && !isReloading)
 	{
-		SpawnProjectile(pSpawnRotation);
+		SpawnProjectile(pCrossHairLocation);
 		currentAmmo--;
 	
 		if (currentMagazineAmmo > 0 )
@@ -64,10 +65,10 @@ void ABaseWeapon::Shoot(FRotator pSpawnRotation)
 	//UE_LOG(LogTemp, Warning, TEXT("CURRENT AMMO = %d , CURRENT MAGAZINE = %d "), currentAmmo, currentMagazineAmmo);
 }
 
-void ABaseWeapon::SpawnProjectile(const FRotator& pSpawnRotation)
+void ABaseWeapon::SpawnProjectile(const FVector& pCrossHairLocation)
 {
-	FRotator spawnRotation = pSpawnRotation;
 	FVector spawnLocation = (muzzleLocation) ? muzzleLocation->GetComponentLocation() : FVector(0.0f);
+	FRotator spawnRotation = (pCrossHairLocation - spawnLocation).Rotation();
 	FActorSpawnParameters actorSpawnParams;
 	actorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 	ABaseProjectile* spawnedProjectile = GetWorld()->SpawnActor<ABaseProjectile>(projectile, spawnLocation, spawnRotation, actorSpawnParams);

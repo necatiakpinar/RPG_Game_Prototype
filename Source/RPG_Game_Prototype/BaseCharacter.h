@@ -74,6 +74,8 @@ public:
 		TSubclassOf<UWeaponHandlerComponent> weaponHandlerBP;
 	UPROPERTY(EditAnywhere, Category = "Animations")
 		UAnimMontage* ReloadAM;
+
+	FVector crossHairLocation;
 private:
 	UWeaponHandlerComponent* weaponHandler;
 protected:
@@ -90,6 +92,7 @@ public:
 	virtual void Interact() override;
 	virtual void TakeDamage(float pTakeDamage) override;
 	virtual void Die() override;
+	virtual void TraceForward_Implementation();
 	void  SetWalkSpeed(float pWalkSpeed);
 	void  PlayReloadAnimation();
 };

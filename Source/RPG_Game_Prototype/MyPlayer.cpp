@@ -116,7 +116,6 @@ void AMyPlayer::TraceForward_Implementation()
 	FVector location;
 	FRotator rotation;
 	FHitResult hit;
-
 	GetController()->GetPlayerViewPoint(location, rotation);
 
 	FVector start = location;
@@ -124,12 +123,17 @@ void AMyPlayer::TraceForward_Implementation()
 	FCollisionQueryParams traceParams;
 
 	bool bHit = GetWorld()->LineTraceSingleByChannel(hit, start, end, ECC_Visibility, traceParams);
-	DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 2.0f);
+//	DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 2.0f);
+
+	crossHairLocation = hit.TraceEnd;
 
 	if (bHit)
 	{
+		crossHairLocation = hit.ImpactPoint;
 		if (hit.GetActor())
 		{
+			//GetController()->LookAt
+			//hit.ImpactPoint
 			IInteractable* interactableObject = Cast<IInteractable>(hit.GetActor());
 			if (interactableObject)
 			{
@@ -137,6 +141,7 @@ void AMyPlayer::TraceForward_Implementation()
 			}
 		}
 	}
+	//hit.TraceEnd
 
 }
 

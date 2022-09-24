@@ -82,6 +82,10 @@ void ABaseCharacter::Die()
 	AActor::Destroy();
 }
 
+void ABaseCharacter::TraceForward_Implementation()
+{
+}
+
 void ABaseCharacter::SetWalkSpeed(float pWalkSpeed)
 {
 	GetCharacterMovement()->MaxWalkSpeed = pWalkSpeed;

@@ -60,7 +60,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void Shoot(FRotator pSpawnRotation);
-	void SpawnProjectile(const FRotator& pSpawnRotation);
+	void Shoot(FVector pCrossHairLocation);
+	void SpawnProjectile(const FVector& pCrossHairLocation);
 	void ReloadAmmo();
 };

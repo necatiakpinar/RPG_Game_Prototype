@@ -31,12 +31,14 @@ public:
 	int liveCodingRocksBaby;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	float textVariables;
+
+	// FRotator crossHairLocation;
 public:
 	AMyPlayer();
 	void InitializeMovement();
 	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
-	void TraceForward_Implementation();
+	virtual void TraceForward_Implementation() override;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)

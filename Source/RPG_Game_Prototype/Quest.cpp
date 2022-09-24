@@ -49,7 +49,7 @@ void UQuest::UpdateObjectives(int objectiveIndex, AEnemy* pEnemy, UItem* pItem)
 						objectiveList[i].targetAmount--;
 						objectiveList[i].objectiveDescription = FString::FromInt(objectiveList[i].targetAmount).
 						Append(" " + UMyUtils::GetEnumValue((uint8)pEnemy->enemyType,"EEnemyType").ToLower() + " Enemy");
-						// print(-1,5.0f,FString::Printf(TEXT("Got you motherfucker! There is %d enemy left to finish this quest!"),
+						 //print(-1f,5.0f,FString::Printf(TEXT("Got you motherfucker! There is %d enemy left to finish this quest!"),
 						// 	objectiveList[i].targetAmount));
 
 						if (objectiveList[i].targetAmount <= 0)
