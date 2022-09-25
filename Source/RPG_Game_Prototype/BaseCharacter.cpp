@@ -41,7 +41,7 @@ void ABaseCharacter::InitializeWeapons()
 		FTransform socketTransform = GetMesh()->GetSocketTransform(FName("hand_r_weapon_socket"));
 		ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(weaponBP, socketTransform);
 		weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_weapon_socket"));
-	
+
 		weaponHandler->AssignWeapon(weapon);
 		UE_LOG(LogTemp, Warning, TEXT("%d"),weaponHandler->weaponList.Num());
 	}

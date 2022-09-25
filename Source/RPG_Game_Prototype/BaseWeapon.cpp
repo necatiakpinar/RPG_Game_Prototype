@@ -3,6 +3,7 @@
 
 #include "BaseWeapon.h"
 #include "BaseProjectile.h"
+#include "TimerManager.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/KismetMathLibrary.h"

@@ -7,8 +7,6 @@
 #include "Enums.h"
 #include "Enemy.generated.h"
 
-
-
 class AMyPlayer;
 UCLASS()
 class RPG_GAME_PROTOTYPE_API AEnemy : public ABaseCharacter

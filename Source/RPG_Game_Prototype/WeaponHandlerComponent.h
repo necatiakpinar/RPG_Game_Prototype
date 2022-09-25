@@ -3,12 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ThrowableItem.h"
 #include "Components/ActorComponent.h"
 #include "WeaponHandlerComponent.generated.h"
 
 
 class ABaseWeapon;
 class ABaseCharacter;
+class AThrowableItem;
+
 UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class RPG_GAME_PROTOTYPE_API UWeaponHandlerComponent : public UActorComponent
 {
@@ -25,14 +28,15 @@ public:
 		TArray <ABaseWeapon*> weaponList;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ABaseWeapon* activeWeapon;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TSubclassOf<AThrowableItem> throwableItemBP;
 
 
 private:
-	FTimerManager* timerManager;
 	FTimerHandle timerHandler;
 	UWorld* world;
 	ABaseCharacter* owner;
-	float test;
+	AThrowableItem* throwableItem;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -53,9 +57,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void EndReloading();
 
+	UFUNCTION(BlueprintCallable)
+		void ThrowThrowableItem();
 	void StartShoot();
 	void StopShoot();
 
 	void SetWalkingSpeedToShootingSpeed();
 	void SetWalkingSpeedToNormal();
+	
+	
 };

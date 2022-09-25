@@ -6,6 +6,9 @@
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "BaseWeapon.h"
 #include "BaseCharacter.h"
+#include "ThrowableItem.h"
+#include "TimerManager.h"
+#include "Macros.h"
 
 // Sets default values for this component's properties
 UWeaponHandlerComponent::UWeaponHandlerComponent()
@@ -23,6 +26,7 @@ void UWeaponHandlerComponent::BeginPlay()
 	Super::BeginPlay();
 	world = GetWorld();
 	owner = Cast<ABaseCharacter>(GetOwner());
+	
 }
 
 
@@ -43,6 +47,7 @@ void UWeaponHandlerComponent::SetActiveWeapon(int32 pWeaponIndex)
 	}
 
 	activeWeapon = weaponList[pWeaponIndex];
+
 }
 void UWeaponHandlerComponent::AssignWeapon(ABaseWeapon* pWeapon)
 {
@@ -75,6 +80,7 @@ void UWeaponHandlerComponent::StartShoot()
 	{
 		if (activeWeapon->canShoot)
 		{
+			ThrowThrowableItem();
 			owner->AttributesBoolean.isShooting = true;
 			SetWalkingSpeedToShootingSpeed();
 			// FRotator spawnRotation = owner->GetControlRotation();
@@ -102,6 +108,15 @@ void UWeaponHandlerComponent::StartReloading()
 
 void UWeaponHandlerComponent::EndReloading()
 {
+}
+
+void UWeaponHandlerComponent::ThrowThrowableItem()
+{
+	throwableItem = GetWorld()->SpawnActor<AThrowableItem>(throwableItemBP);
+	if (throwableItem)
+	{
+		throwableItem->LaunchThrowable(FVector(0.0f,5000.0f,5000.0f),activeWeapon->muzzleLocation->GetComponentLocation());
+	}
 }
 
 void UWeaponHandlerComponent::SetWalkingSpeedToShootingSpeed()
