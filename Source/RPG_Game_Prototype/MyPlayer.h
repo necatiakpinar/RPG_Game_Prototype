@@ -27,11 +27,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components , meta = (AllowPrivateAccess = "true"))
 	class UQuestLogComponent* questLogComponentImplemented;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	int liveCodingRocksBaby;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	float textVariables;
-
 	// FRotator crossHairLocation;
 public:
 	AMyPlayer();

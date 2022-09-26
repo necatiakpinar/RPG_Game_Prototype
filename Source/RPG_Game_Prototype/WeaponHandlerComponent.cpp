@@ -80,7 +80,6 @@ void UWeaponHandlerComponent::StartShoot()
 	{
 		if (activeWeapon->canShoot)
 		{
-			ThrowThrowableItem();
 			owner->AttributesBoolean.isShooting = true;
 			SetWalkingSpeedToShootingSpeed();
 			// FRotator spawnRotation = owner->GetControlRotation();
@@ -115,7 +114,8 @@ void UWeaponHandlerComponent::ThrowThrowableItem()
 	throwableItem = GetWorld()->SpawnActor<AThrowableItem>(throwableItemBP);
 	if (throwableItem)
 	{
-		throwableItem->LaunchThrowable(FVector(0.0f,5000.0f,5000.0f),activeWeapon->muzzleLocation->GetComponentLocation());
+		throwableItem->LaunchThrowable(activeWeapon->muzzleLocation->GetForwardVector(),activeWeapon->muzzleLocation->GetComponentLocation());
+		
 	}
 }
 

@@ -34,7 +34,7 @@ void AThrowableItem::Tick(float DeltaTime)
 void AThrowableItem::LaunchThrowable(FVector pImpulse, FVector pLocation)
 {
 	SetActorLocation(pLocation);
-	itemMesh->AddImpulseAtLocation(pImpulse,pLocation);
+	itemMesh->AddImpulseAtLocation((pImpulse + FVector(0.0f,0.0f,0.1f))* 10000.0f,pLocation);
 }
 
 void AThrowableItem::DestroyObject()
