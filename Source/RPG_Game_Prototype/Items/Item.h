@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Item.generated.h"
 
+
 class AMyPlayer;
 
 UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)

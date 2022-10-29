@@ -28,7 +28,6 @@ void AThrowableItem::BeginPlay()
 void AThrowableItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AThrowableItem::LaunchThrowable(FVector pImpulse, FVector pLocation)

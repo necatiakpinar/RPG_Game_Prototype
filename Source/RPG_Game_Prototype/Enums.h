@@ -19,3 +19,13 @@ enum class EEnemyType : uint8
 	Melee UMETA(DisplayName = "MELEE"),
 	Ranged UMETA(DisplayName = "RANGED")
 };
+
+UENUM(BlueprintType)
+enum class ECraftMaterial : uint8
+{
+	None UMETA(DisplayName = "None"),
+	Stick UMETA(DisplayName = "Stick"),
+	Rock UMETA(DisplayName = "Rock"),
+	Cloth UMETA(DisplayName = "Cloth"),
+	Rope UMETA(DisplayName = "Rope"),
+};

@@ -14,6 +14,7 @@
 #include "Items/InventoryComponent.h"
 #include "QuestLogComponent.h"
 #include "Quest.h"
+#include "Interfaces/Collectable.h"
 
 AMyPlayer::AMyPlayer()
 {
@@ -132,13 +133,14 @@ void AMyPlayer::TraceForward_Implementation()
 		crossHairLocation = hit.ImpactPoint;
 		if (hit.GetActor())
 		{
-			//GetController()->LookAt
-			//hit.ImpactPoint
 			IInteractable* interactableObject = Cast<IInteractable>(hit.GetActor());
+			ICollectable* collectableObject = Cast<ICollectable>(hit.GetActor());
+			
 			if (interactableObject)
-			{
 				interactableObject->Interact();
-			}
+			
+			if (collectableObject)
+				collectableObject->Collect();
 		}
 	}
 	//hit.TraceEnd
