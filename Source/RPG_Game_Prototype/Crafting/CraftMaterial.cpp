@@ -4,6 +4,7 @@
 #include "CraftMaterial.h"
 #include "Components/BoxComponent.h"
 #include  "Components/StaticMeshComponent.h"
+#include "RPG_Game_Prototype/DataAssets/DACraftMaterialAttributes.h"
 
 // Sets default values
 ACraftMaterial::ACraftMaterial()
@@ -18,3 +19,31 @@ ACraftMaterial::ACraftMaterial()
 
 	meshComponent->SetupAttachment(GetRootComponent());
 }
+
+void ACraftMaterial::BeginPlay()
+{
+	Super::BeginPlay();
+	Initialize();
+}
+
+void ACraftMaterial::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+}
+
+void ACraftMaterial::Initialize()
+{
+	if (daMaterialProperties)
+	{
+		materialAttributes.materialType = daMaterialProperties->materialType;
+		materialAttributes.materialDescription = daMaterialProperties->materialDescription;
+	}
+	
+}
+
+
+void ACraftMaterial::Collect()
+{
+	print(-1,3.0f,TEXT("Collected"));
+}
+

@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class RPG_GAME_PROTOTYPE_API ACMStick : public ACraftMaterial, public ICollectable
+class RPG_GAME_PROTOTYPE_API ACMStick : public ACraftMaterial
 {
 	GENERATED_BODY()
 
@@ -19,7 +19,4 @@ public:
 	ACMStick();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-	virtual void Initialize() override;
-	virtual void Collect() override;
-
 };

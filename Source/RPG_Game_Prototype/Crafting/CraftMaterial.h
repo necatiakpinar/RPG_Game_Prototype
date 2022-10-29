@@ -11,25 +11,45 @@
 
 class UBoxComponent;
 class UStaticMeshComponent;
+class UDACraftMaterialAttributes;
+
+USTRUCT(BlueprintType)
+struct FCraftMaterialAttributes
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	ECraftMaterial materialType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (Multiline = true))
+	FText materialDescription;
+
+};
+
 
 UCLASS(Abstract, Blueprintable, DefaultToInstanced)
-class RPG_GAME_PROTOTYPE_API ACraftMaterial : public AActor
+class RPG_GAME_PROTOTYPE_API ACraftMaterial : public AActor, public ICollectable
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Attributes")
-	ECraftMaterial materialType = ECraftMaterial::None;
-
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FCraftMaterialAttributes materialAttributes;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UDACraftMaterialAttributes* daMaterialProperties;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Components")
 	UBoxComponent* boxComponent;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* meshComponent;
-	
+
 public:	
 	ACraftMaterial();
-	
-	virtual void Initialize() PURE_VIRTUAL(ACraftMaterial,);
+	void Initialize();
+	virtual void Collect() override;
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 	
 };
