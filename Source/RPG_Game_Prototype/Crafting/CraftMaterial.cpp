@@ -4,6 +4,8 @@
 #include "CraftMaterial.h"
 #include "Components/BoxComponent.h"
 #include  "Components/StaticMeshComponent.h"
+#include "RPG_Game_Prototype/CrafterComponent.h"
+#include "RPG_Game_Prototype/MyPlayer.h"
 #include "RPG_Game_Prototype/DataAssets/DACraftMaterialAttributes.h"
 
 // Sets default values
@@ -35,9 +37,13 @@ void ACraftMaterial::Initialize()
 {
 	if (daMaterialProperties)
 	{
+		materialAttributes.materialName = daMaterialProperties->materialName;
 		materialAttributes.materialType = daMaterialProperties->materialType;
 		materialAttributes.materialDescription = daMaterialProperties->materialDescription;
 	}
+
+	player = Cast<AMyPlayer>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	crafterComponent = player->crafterComponentImplemented;
 	
 }
 
@@ -45,5 +51,8 @@ void ACraftMaterial::Initialize()
 void ACraftMaterial::Collect()
 {
 	print(-1,3.0f,TEXT("Collected"));
+
+	if (crafterComponent)
+		crafterComponent->IncreaseMaterialQuantity(materialAttributes.materialType);
 }
 

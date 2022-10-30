@@ -17,6 +17,9 @@ class RPG_GAME_PROTOTYPE_API UDACraftMaterialAttributes : public UDataAsset
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FString materialName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ECraftMaterial materialType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (Multiline = true))

@@ -14,6 +14,8 @@
 #include "Items/InventoryComponent.h"
 #include "QuestLogComponent.h"
 #include "Quest.h"
+#include "CrafterComponent.h"
+
 #include "Interfaces/Collectable.h"
 
 AMyPlayer::AMyPlayer()
@@ -23,14 +25,14 @@ AMyPlayer::AMyPlayer()
 	Attributes.health = 1000.f;
 	inventoryComponent = CreateDefaultSubobject<UInventoryComponent>("Inventory");
 	inventoryComponent->capacity = 20;
-
-
+	
 }
 
 void AMyPlayer::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	questLogComponentImplemented = FindComponentByClass<UQuestLogComponent>();
+	crafterComponentImplemented = FindComponentByClass<UCrafterComponent>();
 
 }
 

@@ -27,6 +27,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components , meta = (AllowPrivateAccess = "true"))
 	class UQuestLogComponent* questLogComponentImplemented;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components , meta = (AllowPrivateAccess = "true"))
+	class UCrafterComponent* crafterComponentImplemented;
+	
+
 	// FRotator crossHairLocation;
 public:
 	AMyPlayer();

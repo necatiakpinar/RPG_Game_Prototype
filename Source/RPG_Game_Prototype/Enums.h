@@ -28,4 +28,5 @@ enum class ECraftMaterial : uint8
 	Rock UMETA(DisplayName = "Rock"),
 	Cloth UMETA(DisplayName = "Cloth"),
 	Rope UMETA(DisplayName = "Rope"),
+	Count
 };

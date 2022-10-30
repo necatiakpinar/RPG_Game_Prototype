@@ -17,6 +17,9 @@ USTRUCT(BlueprintType)
 struct FCraftMaterialAttributes
 {
 	GENERATED_USTRUCT_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FString materialName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ECraftMaterial materialType;
@@ -44,6 +47,10 @@ public:
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* meshComponent;
+
+private:
+	class AMyPlayer* player;
+	class UCrafterComponent* crafterComponent;
 
 public:	
 	ACraftMaterial();
