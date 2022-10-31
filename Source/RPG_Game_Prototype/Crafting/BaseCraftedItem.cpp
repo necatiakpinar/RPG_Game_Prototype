@@ -1,27 +1,32 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+	// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "BaseCraftedItem.h"
 
-// Sets default values
-ABaseCraftedItem::ABaseCraftedItem()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+#include "RPG_Game_Prototype/CrafterComponent.h"
+#include "RPG_Game_Prototype/MyPlayer.h"
 
-}
-
-// Called when the game starts or when spawned
-void ABaseCraftedItem::BeginPlay()
+UBaseCraftedItem::UBaseCraftedItem()
 {
-	Super::BeginPlay();
 	
 }
 
-// Called every frame
-void ABaseCraftedItem::Tick(float DeltaTime)
+bool UBaseCraftedItem::CanCraftedItemCraftable()
 {
-	Super::Tick(DeltaTime);
+	//TODO: Create initialize for each instance!
+	player = Cast<AMyPlayer>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	crafterComponent = player->crafterComponentImplemented;
+	
+	for (FCraftedItemRequirements itemRequirements : requirementList)
+	{
+		FCraftMaterialProperties craftMateriaProperties = crafterComponent->GetCraftMaterialProperties(itemRequirements.craftMaterialType);
+		if (craftMateriaProperties.materialType != ECraftMaterial::None &&
+		 craftMateriaProperties.materialQuantity >= itemRequirements.quantity)
+			canCraftable = true;
+		else
+			canCraftable = false;
+	}
 
+	return canCraftable;
 }
 
