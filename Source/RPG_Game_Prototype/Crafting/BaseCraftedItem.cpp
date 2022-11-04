@@ -4,6 +4,7 @@
 #include "BaseCraftedItem.h"
 
 #include "RPG_Game_Prototype/CrafterComponent.h"
+#include "BaseCraftedItem.h"
 #include "RPG_Game_Prototype/MyPlayer.h"
 
 UBaseCraftedItem::UBaseCraftedItem()
@@ -24,7 +25,10 @@ bool UBaseCraftedItem::CanCraftedItemCraftable()
 		 craftMateriaProperties.materialQuantity >= itemRequirements.quantity)
 			canCraftable = true;
 		else
+		{
 			canCraftable = false;
+			return canCraftable;
+		}
 	}
 
 	return canCraftable;

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Crafting/BaseCraftedItem.h"
 #include "DataAssets/DACraftMaterialAttributes.h"
 #include "RPG_Game_Prototype/Enums.h"
 #include "CrafterComponent.generated.h"
@@ -42,7 +43,7 @@ struct FCraftMaterialProperties
 	
 };
 
-UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent),
+UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent),
 	DefaultToInstanced)
 class RPG_GAME_PROTOTYPE_API UCrafterComponent : public UActorComponent
 {
@@ -57,6 +58,9 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TArray<class UDACraftMaterialAttributes*> materialDataList;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UBaseCraftedItem* craftedItemBP;
 	
 	UPROPERTY(BlueprintAssignable, Category = "Crafter")
 	FOnCrafterMaterialsUpdated OnCrafterMaterialsUpdated;
@@ -77,4 +81,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void DecreaseMaterialQuantity(ECraftMaterial pMaterialType, int32 pDecreaseAmount = 1);
+
+	UFUNCTION(BlueprintCallable)
+	void CreateCraftedItem(class UBaseCraftedItem* pBaseCraftedItem);
 };

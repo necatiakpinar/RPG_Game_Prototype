@@ -17,10 +17,6 @@ struct FCraftedItemRequirements
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 quantity;
-
-	//TODO: Instead of actor, can i pass ICrafteditem or stuff :D i know interfaces are not allowed but try.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AActor> craftedItem;
 	
 };
 
@@ -37,6 +33,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FCraftedItemRequirements> requirementList;
+	
+	//TODO: Instead of actor, can i pass ICrafteditem or stuff :D i know interfaces are not allowed but try.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AActor> craftedItem;
 	
 private:
 		UPROPERTY()

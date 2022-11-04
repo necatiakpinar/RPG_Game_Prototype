@@ -2,9 +2,12 @@
 
 
 #include "CrafterComponent.h"
+
+#include "Crafting/BaseCraftedItem.h"
 #include "Crafting/CraftMaterial.h"
 #include "RPG_Game_Prototype/Macros.h"
 #include "VisualLogger/VisualLoggerTypes.h"
+#include "RPG_Game_Prototype/Interfaces/Craftable.h"
 #include "RPG_Game_Prototype/DataAssets/DACraftMaterialAttributes.h"
 
 
@@ -44,6 +47,13 @@ void UCrafterComponent::Initialize()
 		FCraftMaterialProperties materialProperties = FCraftMaterialProperties(materialData->materialName,materialData->materialType, 0);
 		materialDict.Add(materialData->materialType,materialProperties);
 	}
+
+	if (craftedItemBP)
+	{
+		CreateCraftedItem(craftedItemBP);
+		// if (craftedItemBP->canCraftable)
+		// 	UE_LOG(LogTemp, Warning, TEXT(" GIRDI! %s"), ( craftedItemBP->canCraftable ? TEXT("true") : TEXT("false") ));
+	}
 }
 
 FCraftMaterialProperties UCrafterComponent::GetCraftMaterialProperties(ECraftMaterial pMaterialType)
@@ -72,4 +82,18 @@ void UCrafterComponent::DecreaseMaterialQuantity(ECraftMaterial pMaterialType, i
 	}
 	
 }
+
+void UCrafterComponent::CreateCraftedItem(UBaseCraftedItem* pBaseCraftedItem)
+{
+	if (pBaseCraftedItem)
+	{
+		if (pBaseCraftedItem->craftedItem)
+		{
+			ICraftable* craftableItem = GetWorld()->SpawnActor<ICraftable>(pBaseCraftedItem->craftedItem);
+			if (craftableItem)
+				craftableItem->InitializeCraftable();
+		}
+	}
+}
+
 
