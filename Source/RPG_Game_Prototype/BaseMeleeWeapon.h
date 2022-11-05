@@ -17,7 +17,7 @@ class RPG_GAME_PROTOTYPE_API ABaseMeleeWeapon : public ABaseWeapon
 
 public:
 	ABaseMeleeWeapon();
-	//virtual void InitializeCraftable(class ABaseCharacter* pOwner) override;
+	virtual void InitializeCraftable(class ABaseCharacter* pOwner) override;
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;

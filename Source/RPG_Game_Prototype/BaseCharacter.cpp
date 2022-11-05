@@ -43,17 +43,19 @@ void ABaseCharacter::InitializeComponents()
 
 void ABaseCharacter::InitializeSockets()
 {
-	socketName = "hand_r_weapon_socket";
-	socketTransform = GetMesh()->GetSocketTransform(socketName);
+	socketRWeaponRifleName = "hand_r_weapon_rifle_socket";
+	socketRWeaponRifleTransform = GetMesh()->GetSocketTransform(socketRWeaponRifleName);
+
+	socketRWeaponMeleeBasicAxeName = "hand_r_weapon_melee_axe_socket";
+	socketRCraftedItemBasicAxeTransform = GetMesh()->GetSocketTransform(socketRWeaponMeleeBasicAxeName);
 }
+
 void ABaseCharacter::InitializeWeapons()
 {
 	if (weaponBP && weaponHandler)
 	{
-		socketName = "hand_r_weapon_socket";
-		socketTransform = GetMesh()->GetSocketTransform(socketName);
-		ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(weaponBP, socketTransform);
-		weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, socketName);
+		ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(weaponBP, socketRWeaponRifleTransform);
+		weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, socketRWeaponRifleName);
 
 		weaponHandler->AssignWeapon(weapon);
 		UE_LOG(LogTemp, Warning, TEXT("%d"),weaponHandler->weaponList.Num());

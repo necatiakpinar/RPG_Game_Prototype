@@ -6,6 +6,7 @@
 #include "Damageable.h"
 #include "GameFramework/Actor.h"
 #include "Interfaces/Craftable.h"
+#include "Enums.h"
 #include "BaseWeapon.generated.h"
 
 
@@ -26,45 +27,17 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 totalAmmo;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 currentAmmo;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 magazineCapacity;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 currentMagazineAmmo;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float rateOfFire;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float reloadTime;
+	EWeaponType weaponType;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float damage;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool canShoot;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool isReloading;
-
-	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-		TSubclassOf<ABaseProjectile> projectile;
+		bool canAttack;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		 UStaticMeshComponent * mesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		 USceneComponent* muzzleLocation;
-		
-	FOnReload OnReload;
-private:
-	FTimerHandle timerHandler;
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	void Shoot(FVector pCrossHairLocation);
-	void SpawnProjectile(const FVector& pCrossHairLocation);
-	void ReloadAmmo();
-
-	virtual void InitializeCraftable(ABaseCharacter* pOwner) override;
+	virtual void InitializeCraftable(ABaseCharacter* pOwner) PURE_VIRTUAL(,);
 };

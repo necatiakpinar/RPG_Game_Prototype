@@ -6,6 +6,7 @@
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "BaseWeapon.h"
 #include "BaseCharacter.h"
+#include "BaseRangedWeapon.h"
 #include "ThrowableItem.h"
 #include "TimerManager.h"
 #include "Macros.h"
@@ -54,7 +55,12 @@ void UWeaponHandlerComponent::AssignWeapon(ABaseWeapon* pWeapon)
 	if (weaponList.Num() < capacity)
 	{
 		weaponList.Add(pWeapon);
-		pWeapon->OnReload.AddDynamic(this,&UWeaponHandlerComponent::StartReloading);
+		
+		if (pWeapon->weaponType == EWeaponType::Ranged)
+		{
+			ABaseRangedWeapon* rangedWeapon = Cast<ABaseRangedWeapon>(pWeapon);
+			rangedWeapon->OnReload.AddDynamic(this,&UWeaponHandlerComponent::StartReloading);
+		}
 	}
 
 	SetActiveWeapon(0);
@@ -62,9 +68,10 @@ void UWeaponHandlerComponent::AssignWeapon(ABaseWeapon* pWeapon)
 
 void UWeaponHandlerComponent::StartShooting()
 {
-	if (activeWeapon)
+	if (activeWeapon->weaponType == EWeaponType::Ranged)
 	{
-		world->GetTimerManager().SetTimer(timerHandler, this, &UWeaponHandlerComponent::StartShoot, activeWeapon->rateOfFire, true, 0.0f);
+		ABaseRangedWeapon* rangedWeapon = Cast<ABaseRangedWeapon>(activeWeapon);
+		world->GetTimerManager().SetTimer(timerHandler, this, &UWeaponHandlerComponent::StartShoot, rangedWeapon->rateOfFire, true, 0.0f);
 	}
 }
 void UWeaponHandlerComponent::StopShooting()
@@ -76,21 +83,22 @@ void UWeaponHandlerComponent::StopShooting()
 
 void UWeaponHandlerComponent::StartShoot()
 {
-	if (activeWeapon)
+	if (activeWeapon->weaponType == EWeaponType::Ranged)
 	{
-		if (activeWeapon->canShoot)
+		ABaseRangedWeapon* rangedWeapon = Cast<ABaseRangedWeapon>(activeWeapon);
+		
+		if (rangedWeapon->canAttack)
 		{
 			owner->AttributesBoolean.isShooting = true;
 			SetWalkingSpeedToShootingSpeed();
 			// FRotator spawnRotation = owner->GetControlRotation();
 			owner->TraceForward_Implementation();
 			FVector crossHairLocation = owner->crossHairLocation;
-			activeWeapon->Shoot(crossHairLocation);
+			rangedWeapon->Shoot(crossHairLocation);
 		}
 		else
 			owner->AttributesBoolean.isShooting = false;
 	}
-	
 }
 
 void UWeaponHandlerComponent::StopShoot()
@@ -112,10 +120,11 @@ void UWeaponHandlerComponent::EndReloading()
 void UWeaponHandlerComponent::ThrowThrowableItem()
 {
 	throwableItem = GetWorld()->SpawnActor<AThrowableItem>(throwableItemBP);
-	if (throwableItem)
+	
+	if (throwableItem && activeWeapon->weaponType == EWeaponType::Ranged)
 	{
-		throwableItem->LaunchThrowable(activeWeapon->muzzleLocation->GetForwardVector(),activeWeapon->muzzleLocation->GetComponentLocation());
-		
+		ABaseRangedWeapon* rangedWeapon = Cast<ABaseRangedWeapon>(activeWeapon);
+		throwableItem->LaunchThrowable(rangedWeapon->muzzleLocation->GetForwardVector(),rangedWeapon->muzzleLocation->GetComponentLocation());
 	}
 }
 

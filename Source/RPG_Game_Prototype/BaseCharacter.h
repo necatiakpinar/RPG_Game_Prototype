@@ -75,10 +75,15 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Animations")
 		UAnimMontage* ReloadAM;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FTransform socketTransform;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName socketName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
+	FTransform socketRWeaponRifleTransform;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
+	FName socketRWeaponRifleName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
+	FTransform socketRCraftedItemBasicAxeTransform;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
+	FName socketRWeaponMeleeBasicAxeName;
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector crossHairLocation;
