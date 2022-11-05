@@ -11,13 +11,13 @@
  * 
  */
 UCLASS()
-class RPG_GAME_PROTOTYPE_API ABaseMeleeWeapon : public ABaseWeapon, public ICraftable
+class RPG_GAME_PROTOTYPE_API ABaseMeleeWeapon : public ABaseWeapon
 {
 	GENERATED_BODY()
 
 public:
 	ABaseMeleeWeapon();
-	virtual void InitializeCraftable() override;
+	//virtual void InitializeCraftable(class ABaseCharacter* pOwner) override;
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;

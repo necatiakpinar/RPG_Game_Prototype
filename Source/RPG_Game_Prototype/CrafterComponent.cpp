@@ -7,6 +7,7 @@
 #include "Crafting/CraftMaterial.h"
 #include "RPG_Game_Prototype/Macros.h"
 #include "VisualLogger/VisualLoggerTypes.h"
+#include "RPG_Game_Prototype/BaseCharacter.h"
 #include "RPG_Game_Prototype/Interfaces/Craftable.h"
 #include "RPG_Game_Prototype/DataAssets/DACraftMaterialAttributes.h"
 
@@ -37,7 +38,7 @@ void UCrafterComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 void UCrafterComponent::Initialize()
 {
-
+	//Initialize the materials
 	for (int i = 0; i < materialDataList.Num(); i++)
 	{
 		if (materialDataList[0]->materialType == ECraftMaterial::None)
@@ -47,6 +48,9 @@ void UCrafterComponent::Initialize()
 		FCraftMaterialProperties materialProperties = FCraftMaterialProperties(materialData->materialName,materialData->materialType, 0);
 		materialDict.Add(materialData->materialType,materialProperties);
 	}
+
+	//Initialize the references
+	owner = Cast<ABaseCharacter>(GetOwner());
 
 	if (craftedItemBP)
 	{
@@ -83,6 +87,7 @@ void UCrafterComponent::DecreaseMaterialQuantity(ECraftMaterial pMaterialType, i
 	
 }
 
+//TODO: I need to create reference to the inventory, right now I'm directly creating the item and giving the players hands
 void UCrafterComponent::CreateCraftedItem(UBaseCraftedItem* pBaseCraftedItem)
 {
 	if (pBaseCraftedItem)
@@ -91,7 +96,9 @@ void UCrafterComponent::CreateCraftedItem(UBaseCraftedItem* pBaseCraftedItem)
 		{
 			ICraftable* craftableItem = GetWorld()->SpawnActor<ICraftable>(pBaseCraftedItem->craftedItem);
 			if (craftableItem)
-				craftableItem->InitializeCraftable();
+			{
+				craftableItem->InitializeCraftable(owner);
+			}
 		}
 	}
 }

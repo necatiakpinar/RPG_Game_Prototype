@@ -75,12 +75,20 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Animations")
 		UAnimMontage* ReloadAM;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FTransform socketTransform;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName socketName;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector crossHairLocation;
 private:
 	UWeaponHandlerComponent* weaponHandler;
 protected:
 	// Called when the game starts or when spawned
+	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
+	virtual void InitializeSockets();
 
 	void InitializeAttributes();
 	void InitializeWeapons();

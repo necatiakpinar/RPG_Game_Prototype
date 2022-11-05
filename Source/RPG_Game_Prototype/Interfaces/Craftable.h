@@ -23,5 +23,5 @@ class RPG_GAME_PROTOTYPE_API ICraftable
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	virtual void InitializeCraftable() = 0;
+	virtual void InitializeCraftable(class ABaseCharacter* pOwner) = 0;
 };

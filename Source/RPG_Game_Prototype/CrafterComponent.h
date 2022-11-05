@@ -64,6 +64,9 @@ public:
 	
 	UPROPERTY(BlueprintAssignable, Category = "Crafter")
 	FOnCrafterMaterialsUpdated OnCrafterMaterialsUpdated;
+
+private:
+	class ABaseCharacter* owner;
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

@@ -4,6 +4,7 @@
 #include "BaseWeapon.h"
 #include "BaseProjectile.h"
 #include "TimerManager.h"
+#include "BaseCharacter.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -86,5 +87,11 @@ void ABaseWeapon::ReloadAmmo()
 
 	canShoot = true;
 	isReloading = false;
+}
+
+void ABaseWeapon::InitializeCraftable(ABaseCharacter* pOwner)
+{
+	this->AttachToComponent(pOwner->GetMesh(),FAttachmentTransformRules::SnapToTargetIncludingScale,pOwner->socketName);
+	UE_LOG(LogTemp, Warning, TEXT("This weapon is craftable!"));
 }
 

@@ -15,6 +15,12 @@ ABaseCharacter::ABaseCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+void ABaseCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	InitializeSockets();
+	
+}
 // Called when the game starts or when spawned
 void ABaseCharacter::BeginPlay()
 {
@@ -34,13 +40,20 @@ void ABaseCharacter::InitializeComponents()
 	weaponHandler = Cast<UWeaponHandlerComponent>(GetComponentByClass(UWeaponHandlerComponent::StaticClass()));
 
 }
+
+void ABaseCharacter::InitializeSockets()
+{
+	socketName = "hand_r_weapon_socket";
+	socketTransform = GetMesh()->GetSocketTransform(socketName);
+}
 void ABaseCharacter::InitializeWeapons()
 {
 	if (weaponBP && weaponHandler)
 	{
-		FTransform socketTransform = GetMesh()->GetSocketTransform(FName("hand_r_weapon_socket"));
+		socketName = "hand_r_weapon_socket";
+		socketTransform = GetMesh()->GetSocketTransform(socketName);
 		ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(weaponBP, socketTransform);
-		weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_weapon_socket"));
+		weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, socketName);
 
 		weaponHandler->AssignWeapon(weapon);
 		UE_LOG(LogTemp, Warning, TEXT("%d"),weaponHandler->weaponList.Num());

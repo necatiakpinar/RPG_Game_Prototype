@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Damageable.h"
 #include "GameFramework/Actor.h"
+#include "Interfaces/Craftable.h"
 #include "BaseWeapon.generated.h"
 
 
@@ -15,7 +16,7 @@ class USceneComponent;
 class UStaticMeshComponent;
 
 UCLASS()
-class RPG_GAME_PROTOTYPE_API ABaseWeapon : public AActor
+class RPG_GAME_PROTOTYPE_API ABaseWeapon : public AActor, public ICraftable
 {
 	GENERATED_BODY()
 	
@@ -64,4 +65,6 @@ public:
 	void Shoot(FVector pCrossHairLocation);
 	void SpawnProjectile(const FVector& pCrossHairLocation);
 	void ReloadAmmo();
+
+	virtual void InitializeCraftable(ABaseCharacter* pOwner) override;
 };

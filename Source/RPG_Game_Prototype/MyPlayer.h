@@ -29,16 +29,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components , meta = (AllowPrivateAccess = "true"))
 	class UCrafterComponent* crafterComponentImplemented;
-	
 
-	// FRotator crossHairLocation;
 public:
-	AMyPlayer();
-	void InitializeMovement();
-	virtual void PostInitializeComponents() override;
-	virtual void BeginPlay() override;
-	virtual void TraceForward_Implementation() override;
-
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 		float BaseTurnRate;
@@ -53,6 +45,8 @@ public:
 		bool turnLeft;
 
 public:
+	AMyPlayer();
+	void InitializeMovement();
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
@@ -62,5 +56,10 @@ public:
 	void UseItem(class UItem* pItem);
 	void GetComponentOfActor(UQuestLogComponent* pActorComponent);
 
+	virtual void TraceForward_Implementation() override;
+	
+protected:
+	virtual void PostInitializeComponents() override;
+	virtual void BeginPlay() override;
 };
 
