@@ -19,17 +19,22 @@ struct FObjective //Later on, update this FObjective struct...
 	uint8 objectiveIndex;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-		EObjectiveType objectiveType;
+	EObjectiveType objectiveType;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-		TSubclassOf<AEnemy> enemyType;
+	TSubclassOf<AEnemy> enemyType;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-		TSubclassOf<UItem> itemType;
+	TSubclassOf<UItem> itemType;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool isObjectiveFinished;
+	bool isObjectiveFinished;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		uint8 targetAmount;
+	uint8 targetAmount;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
-		FString objectiveDescription;
+	FString objectiveDescription;
 };
 
 class UBaseObjective;
@@ -40,8 +45,9 @@ class RPG_GAME_PROTOTYPE_API UQuest : public UObject
 public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TArray<FObjective> objectiveList;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int questIndex;
+	int questIndex;
 
 	UPROPERTY(Transient)
 	bool isQuestFinished;
@@ -49,6 +55,7 @@ public:
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnObjectiveUpdated OnObjectiveUpdated;
+	
 	UPROPERTY(BlueprintAssignable)
 	FOnObjectiveFinished OnObjectiveFinished;
 
@@ -57,10 +64,13 @@ public:
 	void InitializeObjectives();
 	void UpdateQuest();
 	void UpdateObjectives(int objectiveIndex, AEnemy* pEnemy = nullptr, UItem* pItem = nullptr);
+
 	UFUNCTION(BlueprintCallable)
 	FObjective GetObjective(int pObjectiveIndex);
+	
 	UFUNCTION(BlueprintCallable)
 	FString GetObjectiveDescription(int pObjectiveIndex);
+	
 	void ObjectiveFinished(int pQuestIndex, int pObjectiveIndex);
 	void QuestFinished();
 	

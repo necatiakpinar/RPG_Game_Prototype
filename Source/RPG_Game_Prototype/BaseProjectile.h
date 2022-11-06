@@ -17,16 +17,18 @@ public:
 
 public:
 	UPROPERTY(VisibleDefaultsOnly, Category = Projectile)
-		class USphereComponent* collisionSphere;
+	class USphereComponent* collisionSphere;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
-		class UProjectileMovementComponent* projectileMovementComponent;
+	class UProjectileMovementComponent* projectileMovementComponent;
+	
 private:
 	float damage;
 
 public:
 	void Initialize(float pDamage);
+
 	UFUNCTION()
-		void OnHit(UPrimitiveComponent* pHitComp, AActor* pOtherActor,
+	void OnHit(UPrimitiveComponent* pHitComp, AActor* pOtherActor,
 			UPrimitiveComponent* pOtherComp, int32 pOtherBodyIndex,
 			bool bFromSweep, const FHitResult& hit);
 

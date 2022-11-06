@@ -9,10 +9,6 @@
 #include "RPG_Game_Prototype/Macros.h"
 #include "CraftMaterial.generated.h"
 
-class UBoxComponent;
-class UStaticMeshComponent;
-class UDACraftMaterialAttributes;
-
 USTRUCT(BlueprintType)
 struct FCraftMaterialAttributes
 {
@@ -40,13 +36,13 @@ public:
 	FCraftMaterialAttributes materialAttributes;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UDACraftMaterialAttributes* daMaterialProperties;
+	class UDACraftMaterialAttributes* daMaterialProperties;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Components")
-	UBoxComponent* boxComponent;
+	class UBoxComponent* boxComponent;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Components")
-	UStaticMeshComponent* meshComponent;
+	class UStaticMeshComponent* meshComponent;
 
 private:
 	class AMyPlayer* player;

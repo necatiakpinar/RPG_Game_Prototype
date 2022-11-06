@@ -30,13 +30,13 @@ public:
 	EWeaponType weaponType;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float damage;
+	float damage;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool canAttack;
+	bool canAttack;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		 UStaticMeshComponent * mesh;
+		UStaticMeshComponent * mesh;
 
 public:	
 	virtual void InitializeCraftable(ABaseCharacter* pOwner) PURE_VIRTUAL(,);

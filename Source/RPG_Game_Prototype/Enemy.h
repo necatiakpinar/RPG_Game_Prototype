@@ -14,8 +14,9 @@ class RPG_GAME_PROTOTYPE_API AEnemy : public ABaseCharacter
 	GENERATED_BODY()
 
 public:
-	//UPROPERTY(Transient)
+	UPROPERTY(Transient)
 	AMyPlayer* player;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	EEnemyType enemyType;
 private:

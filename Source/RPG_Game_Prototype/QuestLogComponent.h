@@ -27,7 +27,7 @@ public:
 	// UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	// 	UUserWidget* widgetQuestLog;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Instanced)
-		TArray<UQuest*> questList;
+	TArray<UQuest*> questList;
 
 protected:
 	virtual void OnComponentCreated() override;

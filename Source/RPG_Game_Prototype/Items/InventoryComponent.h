@@ -26,10 +26,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 	FOnInventoryUpdated OnInventoryUpdated;
-
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Items")
 	TArray<class UItem*> items;
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

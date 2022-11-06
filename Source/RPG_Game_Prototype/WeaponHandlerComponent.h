@@ -23,14 +23,16 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int32 capacity;
+	int32 capacity;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray <ABaseWeapon*> weaponList;
+	TArray <ABaseWeapon*> weaponList;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		ABaseWeapon* activeWeapon;
+	ABaseWeapon* activeWeapon;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TSubclassOf<AThrowableItem> throwableItemBP;
-
+	TSubclassOf<AThrowableItem> throwableItemBP;!
 
 private:
 	FTimerHandle timerHandler;
@@ -45,25 +47,38 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	UFUNCTION()
-		void SetActiveWeapon(int32 pWeaponIndex);
+	void SetActiveWeapon(int32 pWeaponIndex);
+	
 	UFUNCTION()
-		void AssignWeapon(ABaseWeapon* pWeapon);
-	UFUNCTION(BlueprintCallable)
-		void StartShooting();
-	UFUNCTION(BlueprintCallable)
-		void StopShooting();
-	UFUNCTION(BlueprintCallable)
-		void StartReloading();
-	UFUNCTION(BlueprintCallable)
-		void EndReloading();
+	void AssignWeapon(ABaseWeapon* pWeapon);
+	
+	UFUNCTION(BlueprintCallable, Category = "Ranged")
+	void StartShooting();
+	
+	UFUNCTION(BlueprintCallable, Category = "Ranged")
+	void StopShooting();
+	
+	UFUNCTION(BlueprintCallable, Category = "Ranged")
+	void StartReloading();
+	
+	UFUNCTION(BlueprintCallable, Category = "Ranged")
+	void EndReloading();
+
+	//TODO: Shooting % Hitting can be merged into only one function. Or it is for ranged, and hitting for melee. Do not change :D
+	UFUNCTION(BlueprintCallable, Category = "Melee")
+	void StartHitting();
+	
+	UFUNCTION(BlueprintCallable, Category = "Melee")
+	void StopHitting();
+	
 
 	UFUNCTION(BlueprintCallable)
-		void ThrowThrowableItem();
+	void ThrowThrowableItem();
+	
 	void StartShoot();
 	void StopShoot();
-
 	void SetWalkingSpeedToShootingSpeed();
+	void SetWalkingSpeedToHittingSpeed();
 	void SetWalkingSpeedToNormal();
-	
 	
 };

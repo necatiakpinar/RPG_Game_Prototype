@@ -28,3 +28,8 @@ void ABaseMeleeWeapon::InitializeCraftable(ABaseCharacter* pOwner)
 	UE_LOG(LogTemp, Warning, TEXT("This weapon is craftable!"));
 	//TODO: Add this weapon into weapon list on weapon component!
 }
+
+void ABaseMeleeWeapon::Hit()
+{
+	
+}

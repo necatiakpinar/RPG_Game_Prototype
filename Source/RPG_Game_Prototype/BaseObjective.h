@@ -15,6 +15,6 @@ class RPG_GAME_PROTOTYPE_API UBaseObjective : public UObject
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		EObjectiveType objectiveType;
+	EObjectiveType objectiveType;
 	
 };

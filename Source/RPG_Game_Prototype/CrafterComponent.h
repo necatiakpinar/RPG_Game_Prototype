@@ -79,6 +79,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FCraftMaterialProperties GetCraftMaterialProperties(ECraftMaterial pMaterialType);
+	
 	UFUNCTION(BlueprintCallable)
 	void IncreaseMaterialQuantity(ECraftMaterial pMaterialType, int32 pIncreaseAmount = 1);
 	

@@ -18,13 +18,26 @@ struct FAttributes
 	GENERATED_BODY()
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
-			float health;
+		float health;
+	
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
-			float movementSpeed;
+		float energy;
+	
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
-			float shootingMovementSpeed;
+		float movementSpeed;
+	
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float shootingMovementSpeed;
+	
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float hittingMovementSpeed;
 
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Runtime Variables")
 		float currentHealth;
+	
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Runtime Variables")
+		float currentEnergy;
+		
 
 	/*	FORCEINLINE FAttributes();
 
@@ -39,18 +52,21 @@ struct FAttributesBoolean
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
-		bool isShooting;
+	bool isAttacking;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
-		bool isReloading;
+	bool isReloading;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool isWeaponDrawn;
+	bool isWeaponDrawn;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool isAiming;
+	bool isAiming;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
-		bool isProning;
+	bool isProning;
 
 };
-
 
 
 UCLASS()
@@ -63,25 +79,38 @@ public:
 	ABaseCharacter();
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FAttributes Attributes;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FAttributesBoolean AttributesBoolean;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction") float traceDistance;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FAttributes Attributes;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FAttributesBoolean AttributesBoolean;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float traceDistance;
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Blueprints")
-		TSubclassOf<ABaseWeapon> weaponBP;
+	TSubclassOf<ABaseWeapon> weaponBP;
+	
 	UPROPERTY(EditAnywhere, Category = "Blueprints")
-		TSubclassOf<UWeaponHandlerComponent> weaponHandlerBP;
+	TSubclassOf<UWeaponHandlerComponent> weaponHandlerBP;
+	
 	UPROPERTY(EditAnywhere, Category = "Animations")
-		UAnimMontage* ReloadAM;
+	UAnimMontage* ReloadAM;
+	
+	UPROPERTY(EditAnywhere, Category = "Animations")
+	UAnimMontage* HitAxeAM;
 
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
 	FTransform socketRWeaponRifleTransform;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
 	FName socketRWeaponRifleName;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
 	FTransform socketRCraftedItemBasicAxeTransform;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
 	FName socketRWeaponMeleeBasicAxeName;
 
@@ -106,6 +135,8 @@ public:
 	virtual void TakeDamage(float pTakeDamage) override;
 	virtual void Die() override;
 	virtual void TraceForward_Implementation();
+	void IncreaseEnergy(float pEnergyAmount);
+	void DecreaseEnergy(float pEnergyAmount);
 	void  SetWalkSpeed(float pWalkSpeed);
 	void  PlayReloadAnimation();
 };

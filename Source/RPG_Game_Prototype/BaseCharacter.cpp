@@ -33,6 +33,7 @@ void ABaseCharacter::BeginPlay()
 void  ABaseCharacter::InitializeAttributes()
 {
 	Attributes.currentHealth = Attributes.health;
+	Attributes.currentEnergy = Attributes.energy;
 }
 
 void ABaseCharacter::InitializeComponents()
@@ -84,7 +85,17 @@ void ABaseCharacter::TakeDamage(float pDamageTaken)
 		if (Attributes.currentHealth <= 0)
 			Die();
 	}
+	
+}
 
+void ABaseCharacter::IncreaseEnergy(float pEnergyAmount)
+{
+	
+}
+
+void ABaseCharacter::DecreaseEnergy(float pEnergyAmount)
+{
+	
 }
 
 void ABaseCharacter::Die()

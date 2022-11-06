@@ -41,6 +41,7 @@ public:
 private:
 		UPROPERTY()
 		class AMyPlayer* player;
+	
 		UPROPERTY()
 		class UCrafterComponent* crafterComponent;
 

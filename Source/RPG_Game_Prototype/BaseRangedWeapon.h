@@ -25,16 +25,22 @@ public:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 totalAmmo;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 currentAmmo;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 magazineCapacity;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 currentMagazineAmmo;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float rateOfFire;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float reloadTime;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool isReloading;
 
@@ -45,6 +51,7 @@ public:
 	USceneComponent* muzzleLocation;
 			
 	FOnReload OnReload;
+	
 private:
 	FTimerHandle timerHandler;
 	
@@ -55,9 +62,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void InitializeCraftable(ABaseCharacter* pOwner) override;
+	
 	void Shoot(FVector pCrossHairLocation);
 	void SpawnProjectile(const FVector& pCrossHairLocation);
 	void ReloadAmmo();
-
-	virtual void InitializeCraftable(ABaseCharacter* pOwner) override;
 };

@@ -41,6 +41,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		bool turnRight;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		bool turnLeft;
 

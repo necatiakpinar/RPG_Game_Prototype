@@ -42,9 +42,8 @@ public:
 
 public:
 	virtual void Use(class AMyPlayer* pCharacter);
-
 	virtual class UWorld* GetWorld() const { return world; };
-	
-	UFUNCTION(BlueprintImplementableEvent) void OnUse(class AMyPlayer* pCharacter);
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnUse(class AMyPlayer* pCharacter);
 		
 };

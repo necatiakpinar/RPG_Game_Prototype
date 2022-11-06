@@ -6,6 +6,7 @@
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "BaseWeapon.h"
 #include "BaseCharacter.h"
+#include "BaseMeleeWeapon.h"
 #include "BaseRangedWeapon.h"
 #include "ThrowableItem.h"
 #include "TimerManager.h"
@@ -89,7 +90,7 @@ void UWeaponHandlerComponent::StartShoot()
 		
 		if (rangedWeapon->canAttack)
 		{
-			owner->AttributesBoolean.isShooting = true;
+			owner->AttributesBoolean.isAttacking = true;
 			SetWalkingSpeedToShootingSpeed();
 			// FRotator spawnRotation = owner->GetControlRotation();
 			owner->TraceForward_Implementation();
@@ -97,13 +98,13 @@ void UWeaponHandlerComponent::StartShoot()
 			rangedWeapon->Shoot(crossHairLocation);
 		}
 		else
-			owner->AttributesBoolean.isShooting = false;
+			owner->AttributesBoolean.isAttacking = false;
 	}
 }
 
 void UWeaponHandlerComponent::StopShoot()
 {
-	owner->AttributesBoolean.isShooting= false;
+	owner->AttributesBoolean.isAttacking= false;
 	SetWalkingSpeedToNormal();
 	world->GetTimerManager().ClearTimer(timerHandler);
 }
@@ -114,6 +115,25 @@ void UWeaponHandlerComponent::StartReloading()
 }
 
 void UWeaponHandlerComponent::EndReloading()
+{
+}
+
+void UWeaponHandlerComponent::StartHitting()
+{
+	if (activeWeapon->weaponType == EWeaponType::Melee)
+	{
+		ABaseMeleeWeapon* meleeWeapon = Cast<ABaseMeleeWeapon>(activeWeapon);
+		if (meleeWeapon->canAttack)
+		{
+			SetWalkingSpeedToHittingSpeed();
+			owner->AttributesBoolean.isAttacking = true;
+			meleeWeapon->Hit();
+		}
+		
+	}
+}
+
+void UWeaponHandlerComponent::StopHitting()
 {
 }
 
@@ -131,6 +151,11 @@ void UWeaponHandlerComponent::ThrowThrowableItem()
 void UWeaponHandlerComponent::SetWalkingSpeedToShootingSpeed()
 {
 	owner->SetWalkSpeed(owner->Attributes.shootingMovementSpeed);
+}
+
+void UWeaponHandlerComponent::SetWalkingSpeedToHittingSpeed()
+{
+	owner->SetWalkSpeed(owner->Attributes.hittingMovementSpeed);
 }
 
 void UWeaponHandlerComponent::SetWalkingSpeedToNormal()

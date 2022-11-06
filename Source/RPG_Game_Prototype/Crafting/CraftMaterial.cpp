@@ -44,9 +44,7 @@ void ACraftMaterial::Initialize()
 
 	player = Cast<AMyPlayer>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	crafterComponent = player->crafterComponentImplemented;
-	
 }
-
 
 void ACraftMaterial::Collect()
 {

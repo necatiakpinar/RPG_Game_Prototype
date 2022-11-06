@@ -15,6 +15,7 @@ class RPG_GAME_PROTOTYPE_API AThrowableItem : public AActor
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* itemMesh;
+	
 	FTimerHandle timerHandler;
 	int8 lifeTime;
 public:	
