@@ -7,12 +7,34 @@
 #include "Components/ActorComponent.h"
 #include "WeaponHandlerComponent.generated.h"
 
+USTRUCT(BlueprintType)
+struct FMeleeWeaponAttributes
+{
+	GENERATED_BODY()
 
-class ABaseWeapon;
-class ABaseCharacter;
-class AThrowableItem;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
+	FTransform socketRMeleeAxeTransform;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
+	FName socketRMeleeBasicAxeName;
+	
+};
 
-UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+USTRUCT(BlueprintType)
+struct FRangedWeaponAttributes
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
+	FTransform socketRRifleTransform;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
+	FName socketRRifleName;
+	
+};
+
+UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent),
+	DefaultToInstanced)
 class RPG_GAME_PROTOTYPE_API UWeaponHandlerComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -20,32 +42,49 @@ class RPG_GAME_PROTOTYPE_API UWeaponHandlerComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UWeaponHandlerComponent();
+	
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FMeleeWeaponAttributes meleeWeaponAttributes;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRangedWeaponAttributes rangedWeaponAttributes;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 capacity;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray <ABaseWeapon*> weaponList;
+	TArray <class ABaseWeapon*> weaponList;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ABaseWeapon* activeWeapon;
+	class ABaseWeapon* activeWeapon;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AThrowableItem> throwableItemBP;!
+	TSubclassOf<class AThrowableItem> throwableItemBP;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test")
+	TSubclassOf<class ABaseRangedWeapon> rangedWeaponBP;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test")
+	TSubclassOf<class ABaseMeleeWeapon> meleeWeaponBP;
 private:
 	FTimerHandle timerHandler;
 	UWorld* world;
-	ABaseCharacter* owner;
-	AThrowableItem* throwableItem;
+	class ABaseCharacter* owner;
+	class AThrowableItem* throwableItem;
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	virtual void InitializeComponent() override;
 
+	void InitializeReferences();
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	void CreateMeleeWeapon();
+	
 	UFUNCTION()
 	void SetActiveWeapon(int32 pWeaponIndex);
 	
@@ -77,6 +116,8 @@ public:
 	
 	void StartShoot();
 	void StopShoot();
+	void StartHit();
+	void StopHit();
 	void SetWalkingSpeedToShootingSpeed();
 	void SetWalkingSpeedToHittingSpeed();
 	void SetWalkingSpeedToNormal();

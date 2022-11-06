@@ -2,6 +2,8 @@
 
 
 #include "BaseCharacter.h"
+
+#include "BaseAnimationComponent.h"
 #include "DrawDebugHelpers.h"
 #include "WeaponHandlerComponent.h"
 #include "BaseWeapon.h"
@@ -18,16 +20,13 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-	InitializeSockets();
-	
+	InitializeComponents();
 }
 // Called when the game starts or when spawned
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	InitializeAttributes();
-	InitializeComponents(); 
-	InitializeWeapons();
 }
 
 void  ABaseCharacter::InitializeAttributes()
@@ -38,41 +37,14 @@ void  ABaseCharacter::InitializeAttributes()
 
 void ABaseCharacter::InitializeComponents()
 {
-	weaponHandler = Cast<UWeaponHandlerComponent>(GetComponentByClass(UWeaponHandlerComponent::StaticClass()));
-
-}
-
-void ABaseCharacter::InitializeSockets()
-{
-	socketRWeaponRifleName = "hand_r_weapon_rifle_socket";
-	socketRWeaponRifleTransform = GetMesh()->GetSocketTransform(socketRWeaponRifleName);
-
-	socketRWeaponMeleeBasicAxeName = "hand_r_weapon_melee_axe_socket";
-	socketRCraftedItemBasicAxeTransform = GetMesh()->GetSocketTransform(socketRWeaponMeleeBasicAxeName);
-}
-
-void ABaseCharacter::InitializeWeapons()
-{
-	if (weaponBP && weaponHandler)
-	{
-		ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(weaponBP, socketRWeaponRifleTransform);
-		weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, socketRWeaponRifleName);
-
-		weaponHandler->AssignWeapon(weapon);
-		UE_LOG(LogTemp, Warning, TEXT("%d"),weaponHandler->weaponList.Num());
-	}
+	weaponHandlerComponentImplemented = Cast<UWeaponHandlerComponent>(GetComponentByClass(UWeaponHandlerComponent::StaticClass()));
+	animationComponentImplemented = Cast<UBaseAnimationComponent>(GetComponentByClass(UBaseAnimationComponent::StaticClass()));
 }
 
 // Called every frame
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-//	UE_LOG(LogTemp, Warning, TEXT("%f"), ReloadAM->GetPlayLength());
-
-}
-
-void ABaseCharacter::Interact()
-{
 
 }
 
@@ -117,8 +89,3 @@ void ABaseCharacter::SetWalkSpeed(float pWalkSpeed)
 	GetCharacterMovement()->MaxWalkSpeed = pWalkSpeed;
 }
 
-void ABaseCharacter::PlayReloadAnimation()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Reload animation duration = %f"), ReloadAM->GetPlayLength());
-	PlayAnimMontage(ReloadAM);
-}

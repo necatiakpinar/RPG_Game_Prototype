@@ -2,6 +2,8 @@
 
 
 #include "WeaponHandlerComponent.h"
+
+#include "BaseAnimationComponent.h"
 #include "GameFramework/Actor.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "BaseWeapon.h"
@@ -21,16 +23,26 @@ UWeaponHandlerComponent::UWeaponHandlerComponent()
 	capacity = 1; 
 }
 
-
 // Called when the game starts
 void UWeaponHandlerComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	world = GetWorld();
-	owner = Cast<ABaseCharacter>(GetOwner());
-	
+	InitializeReferences();
+	CreateMeleeWeapon();
 }
 
+void UWeaponHandlerComponent::InitializeComponent() //Its not fetching owner. Check it!
+{
+	Super::InitializeComponent();
+}
+
+void UWeaponHandlerComponent::InitializeReferences()
+{
+	owner = Cast<ABaseCharacter>(GetOwner());
+	world = GetWorld();
+	meleeWeaponAttributes.socketRMeleeAxeTransform = owner->GetMesh()->GetSocketTransform(meleeWeaponAttributes.socketRMeleeBasicAxeName);
+	rangedWeaponAttributes.socketRRifleTransform = owner->GetMesh()->GetSocketTransform(rangedWeaponAttributes.socketRRifleName);
+}
 
 // Called every frame
 void UWeaponHandlerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -38,6 +50,18 @@ void UWeaponHandlerComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+void UWeaponHandlerComponent::CreateMeleeWeapon()
+{
+	if (meleeWeaponBP)
+	{
+		if (GetWorld() != nullptr && owner != nullptr)
+		{
+			ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(meleeWeaponBP, meleeWeaponAttributes.socketRMeleeAxeTransform);
+			weapon->AttachToComponent(owner->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, meleeWeaponAttributes.socketRMeleeBasicAxeName);
+			AssignWeapon(weapon);
+		}
+	}
 }
 
 void UWeaponHandlerComponent::SetActiveWeapon(int32 pWeaponIndex)
@@ -109,9 +133,20 @@ void UWeaponHandlerComponent::StopShoot()
 	world->GetTimerManager().ClearTimer(timerHandler);
 }
 
+void UWeaponHandlerComponent::StartHit()
+{
+}
+
+void UWeaponHandlerComponent::StopHit()
+{
+	owner->AttributesBoolean.isAttacking= false;
+	SetWalkingSpeedToNormal();
+	world->GetTimerManager().ClearTimer(timerHandler);
+}
+
 void UWeaponHandlerComponent::StartReloading()
 {
-	owner->PlayReloadAnimation();
+	owner->animationComponentImplemented->PlayReloadAnimation();
 }
 
 void UWeaponHandlerComponent::EndReloading()
@@ -123,13 +158,11 @@ void UWeaponHandlerComponent::StartHitting()
 	if (activeWeapon->weaponType == EWeaponType::Melee)
 	{
 		ABaseMeleeWeapon* meleeWeapon = Cast<ABaseMeleeWeapon>(activeWeapon);
-		if (meleeWeapon->canAttack)
+		if (meleeWeapon->CanAttack())
 		{
 			SetWalkingSpeedToHittingSpeed();
-			owner->AttributesBoolean.isAttacking = true;
 			meleeWeapon->Hit();
 		}
-		
 	}
 }
 

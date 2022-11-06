@@ -5,6 +5,7 @@
 #include "BaseProjectile.h"
 #include "TimerManager.h"
 #include "BaseCharacter.h"
+#include "WeaponHandlerComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -81,6 +82,7 @@ void ABaseRangedWeapon::ReloadAmmo()
 
 void ABaseRangedWeapon::InitializeCraftable(ABaseCharacter* pOwner)
 {
-	this->AttachToComponent(pOwner->GetMesh(),FAttachmentTransformRules::SnapToTargetIncludingScale,pOwner->socketRWeaponRifleName);
+	FRangedWeaponAttributes rangedWeaponAttributes = pOwner->weaponHandlerComponentImplemented->rangedWeaponAttributes;
+	this->AttachToComponent(pOwner->GetMesh(),FAttachmentTransformRules::SnapToTargetIncludingScale,rangedWeaponAttributes.socketRRifleName);
 	UE_LOG(LogTemp, Warning, TEXT("This weapon is craftable!"));
 }

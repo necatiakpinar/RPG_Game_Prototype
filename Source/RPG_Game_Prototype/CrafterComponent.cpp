@@ -52,12 +52,12 @@ void UCrafterComponent::Initialize()
 	//Initialize the references
 	owner = Cast<ABaseCharacter>(GetOwner());
 
-	if (craftedItemBP)
-	{
-		CreateCraftedItem(craftedItemBP);
-		// if (craftedItemBP->canCraftable)
-		// 	UE_LOG(LogTemp, Warning, TEXT(" GIRDI! %s"), ( craftedItemBP->canCraftable ? TEXT("true") : TEXT("false") ));
-	}
+	// if (craftedItemBP)
+	// {
+	// 	CreateCraftedItem(craftedItemBP);
+	// 	// if (craftedItemBP->canCraftable)
+	// 	// 	UE_LOG(LogTemp, Warning, TEXT(" GIRDI! %s"), ( craftedItemBP->canCraftable ? TEXT("true") : TEXT("false") ));
+	// }
 }
 
 FCraftMaterialProperties UCrafterComponent::GetCraftMaterialProperties(ECraftMaterial pMaterialType)

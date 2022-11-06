@@ -9,9 +9,6 @@
 #include "QuestLogComponent.h"
 #include "BaseCharacter.generated.h"
 
-class ABaseWeapon;
-class UWeaponHandlerComponent;
-
 USTRUCT(BlueprintType)
 struct FAttributes
 {
@@ -90,54 +87,39 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, Category = "Blueprints")
-	TSubclassOf<ABaseWeapon> weaponBP;
+	TSubclassOf<class ABaseWeapon> weaponBP;
 	
 	UPROPERTY(EditAnywhere, Category = "Blueprints")
-	TSubclassOf<UWeaponHandlerComponent> weaponHandlerBP;
+	TSubclassOf<class ABaseMeleeWeapon> meleeWeapon;
 	
-	UPROPERTY(EditAnywhere, Category = "Animations")
-	UAnimMontage* ReloadAM;
 	
-	UPROPERTY(EditAnywhere, Category = "Animations")
-	UAnimMontage* HitAxeAM;
-
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
-	FTransform socketRWeaponRifleTransform;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
-	FName socketRWeaponRifleName;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
-	FTransform socketRCraftedItemBasicAxeTransform;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sockets")
-	FName socketRWeaponMeleeBasicAxeName;
-
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector crossHairLocation;
-private:
-	UWeaponHandlerComponent* weaponHandler;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UWeaponHandlerComponent* weaponHandlerComponentImplemented;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    class UBaseAnimationComponent* animationComponentImplemented;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
-	virtual void InitializeSockets();
-
+	
 	void InitializeAttributes();
-	void InitializeWeapons();
 	void InitializeComponents();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void Interact() override;
+	virtual void Interact() PURE_VIRTUAL(,);
 	virtual void TakeDamage(float pTakeDamage) override;
 	virtual void Die() override;
 	virtual void TraceForward_Implementation();
 	void IncreaseEnergy(float pEnergyAmount);
 	void DecreaseEnergy(float pEnergyAmount);
 	void  SetWalkSpeed(float pWalkSpeed);
-	void  PlayReloadAnimation();
+	
 };
 
