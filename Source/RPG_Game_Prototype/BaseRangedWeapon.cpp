@@ -32,6 +32,11 @@ void ABaseRangedWeapon::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void ABaseRangedWeapon::InitializeReferences()
+{
+	owner = Cast<ABaseCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+}
+
 void ABaseRangedWeapon::Shoot(FVector pCrossHairLocation)
 {
 	if (canAttack  && currentAmmo > 0 && !isReloading)
@@ -78,6 +83,16 @@ void ABaseRangedWeapon::ReloadAmmo()
 	canAttack = true;
 	isReloading = false;
 
+}
+
+bool ABaseRangedWeapon::CanAttack()
+{
+	if (currentMagazineAmmo == 0 && currentAmmo > 0)
+		canAttack = false;
+	else
+		canAttack = true;
+
+	return canAttack;
 }
 
 void ABaseRangedWeapon::InitializeCraftable(ABaseCharacter* pOwner)

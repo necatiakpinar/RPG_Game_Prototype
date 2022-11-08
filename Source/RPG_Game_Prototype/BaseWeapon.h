@@ -40,4 +40,5 @@ public:
 
 public:	
 	virtual void InitializeCraftable(ABaseCharacter* pOwner) PURE_VIRTUAL(,);
+	virtual bool CanAttack() PURE_VIRTUAL(,return false;);
 };

@@ -6,12 +6,6 @@
 #include "BaseWeapon.h"
 #include "BaseRangedWeapon.generated.h"
 
-
-
-class ABaseProjectile;
-class USceneComponent;
-class UStaticMeshComponent;
-
 UCLASS()
 class RPG_GAME_PROTOTYPE_API ABaseRangedWeapon : public ABaseWeapon
 {
@@ -45,15 +39,16 @@ public:
 	bool isReloading;
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<ABaseProjectile> projectile;
+	TSubclassOf<class ABaseProjectile> projectile;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USceneComponent* muzzleLocation;
+	class USceneComponent* muzzleLocation;
 			
 	FOnReload OnReload;
 	
 private:
 	FTimerHandle timerHandler;
+	class ABaseCharacter* owner;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -62,9 +57,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void InitializeCraftable(ABaseCharacter* pOwner) override;
+	void InitializeReferences();
+	virtual void InitializeCraftable(class ABaseCharacter* pOwner) override;
 	
 	void Shoot(FVector pCrossHairLocation);
 	void SpawnProjectile(const FVector& pCrossHairLocation);
 	void ReloadAmmo();
+	virtual bool CanAttack() override;
 };

@@ -4,8 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Enums.h"
 #include "BaseAnimationComponent.generated.h"
 
+
+USTRUCT(BlueprintType)
+struct FAnimMontageWeaponAttack
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	EWeaponAnimationType animationType;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	UAnimMontage* animationMontage;
+	
+};
 
 UCLASS(Blueprintable, BlueprintType, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class RPG_GAME_PROTOTYPE_API UBaseAnimationComponent : public UActorComponent
@@ -16,20 +30,20 @@ public:
 	// Sets default values for this component's properties
 	UBaseAnimationComponent();
 
-	UPROPERTY(EditAnywhere, Category = "Animation Montages")
-	UAnimMontage* ReloadAM;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	TMap<EWeaponAnimationType,UAnimMontage*> weaponAnimationDict;
+	//TArray<FAnimMontageWeaponAttack> animMontageWeaponAttackList;
 	
-	UPROPERTY(EditAnywhere, Category = "Animation Montages")
-	UAnimMontage* MeleeAxeHitAM;
 
 private:
 	class ABaseCharacter* owner;
+	class UAnimInstance* animInstance;
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:
-	void PlayReloadAnimation();
-	void PlayMeleeAxeHitAnimation();
+	void PlayWeaponAnimation(EWeaponAnimationType pAnimationType);
+	bool IsWeaponAnimMontagePlaying(EWeaponAnimationType pAnimationType);
 };

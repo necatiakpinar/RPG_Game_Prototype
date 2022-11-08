@@ -15,19 +15,22 @@ UBaseAnimationComponent::UBaseAnimationComponent()
 void UBaseAnimationComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	owner = Cast<ABaseCharacter>(GetOwner());	
+	owner = Cast<ABaseCharacter>(GetOwner());
+	if (owner)
+		animInstance = owner->GetMesh()->GetAnimInstance(); 
+	
 }
 
-
-void UBaseAnimationComponent::PlayReloadAnimation()
+void UBaseAnimationComponent::PlayWeaponAnimation(EWeaponAnimationType pAnimationType)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Reload animation duration = %f"), ReloadAM->GetPlayLength());
-	owner->PlayAnimMontage(ReloadAM);
+	owner->PlayAnimMontage(weaponAnimationDict.FindRef(pAnimationType));
 }
 
-void UBaseAnimationComponent::PlayMeleeAxeHitAnimation()
+bool UBaseAnimationComponent::IsWeaponAnimMontagePlaying(EWeaponAnimationType pAnimationType)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Melee Axe Hit animation duration = %f"), MeleeAxeHitAM->GetPlayLength());
-	owner->PlayAnimMontage(MeleeAxeHitAM);
+	if (animInstance->Montage_IsPlaying(weaponAnimationDict.FindRef(pAnimationType)))
+		return true;
+	else
+		return false;
 }
 

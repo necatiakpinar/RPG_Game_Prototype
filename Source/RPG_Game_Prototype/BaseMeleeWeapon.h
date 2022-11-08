@@ -26,7 +26,7 @@ public:
 	ABaseMeleeWeapon();
 	virtual void InitializeCraftable(class ABaseCharacter* pOwner) override;
 	void Hit();
-	bool CanAttack();
+	virtual bool CanAttack() override;
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;

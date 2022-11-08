@@ -7,7 +7,7 @@
 UENUM(BlueprintType)
 enum class EObjectiveType : uint8
 {
-	None UMETA(DisplayName = "None"),
+	None UMETA(DisplayName = "NONE"),
 	Kill UMETA(DisplayName = "KILL"),
 	Collect UMETA(DisplayName = "COLLECT")
 };
@@ -32,9 +32,17 @@ UENUM(BlueprintType)
 enum class ECraftMaterial : uint8
 {
 	None UMETA(DisplayName = "None"),
-	Stick UMETA(DisplayName = "Stick"),
-	Rock UMETA(DisplayName = "Rock"),
-	Cloth UMETA(DisplayName = "Cloth"),
-	Rope UMETA(DisplayName = "Rope"),
+	Stick UMETA(DisplayName = "STICK"),
+	Rock UMETA(DisplayName = "ROCK"),
+	Cloth UMETA(DisplayName = "CLOTH"),
+	Rope UMETA(DisplayName = "ROPE"),
 	Count
+};
+
+UENUM(BlueprintType)
+enum class EWeaponAnimationType : uint8
+{
+	None UMETA(DisplayName = "NONE"),
+	HitAxe UMETA(DisplayName = "AXE_HIT"),
+	ReloadRifle UMETA(DisplayName = "RELOAD_RIFLE")
 };

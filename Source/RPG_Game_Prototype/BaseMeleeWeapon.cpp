@@ -53,11 +53,11 @@ void ABaseMeleeWeapon::InitializeCraftable(ABaseCharacter* pOwner)
 
 void ABaseMeleeWeapon::Hit()
 {
-	if (owner != nullptr)
+	if (owner != nullptr && !owner->animationComponentImplemented->IsWeaponAnimMontagePlaying(EWeaponAnimationType::HitAxe))
 	{
 		owner->AttributesBoolean.isAttacking = true;
 		owner->DecreaseEnergy(energyPerHit); //Decrease energy
-		owner->animationComponentImplemented->PlayMeleeAxeHitAnimation(); // Play Animation
+		owner->animationComponentImplemented->PlayWeaponAnimation(EWeaponAnimationType::HitAxe); // Play Animation
 	}
 	
 }

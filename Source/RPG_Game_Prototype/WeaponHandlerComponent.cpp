@@ -29,6 +29,7 @@ void UWeaponHandlerComponent::BeginPlay()
 	Super::BeginPlay();
 	InitializeReferences();
 	CreateMeleeWeapon();
+	//CreateRangedWeapon();
 }
 
 void UWeaponHandlerComponent::InitializeComponent() //Its not fetching owner. Check it!
@@ -59,6 +60,19 @@ void UWeaponHandlerComponent::CreateMeleeWeapon()
 		{
 			ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(meleeWeaponBP, meleeWeaponAttributes.socketRMeleeAxeTransform);
 			weapon->AttachToComponent(owner->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, meleeWeaponAttributes.socketRMeleeBasicAxeName);
+			AssignWeapon(weapon);
+		}
+	}
+}
+
+void UWeaponHandlerComponent::CreateRangedWeapon()
+{
+	if (rangedWeaponBP)
+	{
+		if (GetWorld() != nullptr && owner != nullptr)
+		{
+			ABaseWeapon* weapon = GetWorld()->SpawnActor<ABaseWeapon>(rangedWeaponBP, rangedWeaponAttributes.socketRRifleTransform);
+			weapon->AttachToComponent(owner->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, rangedWeaponAttributes.socketRRifleName);
 			AssignWeapon(weapon);
 		}
 	}
@@ -95,8 +109,11 @@ void UWeaponHandlerComponent::StartShooting()
 {
 	if (activeWeapon->weaponType == EWeaponType::Ranged)
 	{
-		ABaseRangedWeapon* rangedWeapon = Cast<ABaseRangedWeapon>(activeWeapon);
-		world->GetTimerManager().SetTimer(timerHandler, this, &UWeaponHandlerComponent::StartShoot, rangedWeapon->rateOfFire, true, 0.0f);
+		if (activeWeapon->CanAttack())
+		{
+			ABaseRangedWeapon* rangedWeapon = Cast<ABaseRangedWeapon>(activeWeapon);
+			world->GetTimerManager().SetTimer(timerHandler, this, &UWeaponHandlerComponent::StartShoot, rangedWeapon->rateOfFire, true, 0.0f);
+		}
 	}
 }
 void UWeaponHandlerComponent::StopShooting()
@@ -112,7 +129,7 @@ void UWeaponHandlerComponent::StartShoot()
 	{
 		ABaseRangedWeapon* rangedWeapon = Cast<ABaseRangedWeapon>(activeWeapon);
 		
-		if (rangedWeapon->canAttack)
+		if (rangedWeapon->CanAttack())
 		{
 			owner->AttributesBoolean.isAttacking = true;
 			SetWalkingSpeedToShootingSpeed();
@@ -146,7 +163,7 @@ void UWeaponHandlerComponent::StopHit()
 
 void UWeaponHandlerComponent::StartReloading()
 {
-	owner->animationComponentImplemented->PlayReloadAnimation();
+	owner->animationComponentImplemented->PlayWeaponAnimation(EWeaponAnimationType::ReloadRifle);
 }
 
 void UWeaponHandlerComponent::EndReloading()
