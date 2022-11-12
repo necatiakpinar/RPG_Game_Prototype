@@ -7,10 +7,14 @@
 #include "RPG_Game_Prototype/Enums.h"
 #include "BaseCraftedItem.generated.h"
 
+
+
 USTRUCT(BlueprintType)
 struct FCraftedItemRequirements
 {
 	GENERATED_USTRUCT_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString materialName;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ECraftMaterial craftMaterialType;
@@ -27,7 +31,13 @@ class RPG_GAME_PROTOTYPE_API UBaseCraftedItem : public UObject
 	
 public:	
 	UBaseCraftedItem();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText craftedItemName;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (MultiLine = true))
+	FText requirementsInText;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool canCraftable = false;
 
@@ -37,7 +47,8 @@ public:
 	//TODO: Instead of actor, can i pass ICrafteditem or stuff :D i know interfaces are not allowed but try.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AActor> craftedItem;
-	
+
+
 private:
 		UPROPERTY()
 		class AMyPlayer* player;
@@ -46,7 +57,9 @@ private:
 		class UCrafterComponent* crafterComponent;
 
 public:	
-
 	UFUNCTION()
 	bool CanCraftedItemCraftable();
+
+	virtual void PostLoad() override;
+	
 };

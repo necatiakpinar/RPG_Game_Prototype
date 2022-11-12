@@ -34,3 +34,15 @@ bool UBaseCraftedItem::CanCraftedItemCraftable()
 	return canCraftable;
 }
 
+	void UBaseCraftedItem::PostLoad()
+	{
+		UObject::PostLoad();
+
+		FString requirementsString = "";
+	
+		for (int i = 0; i < requirementList.Num(); i++)
+			requirementsString.Append(FString::FromInt(requirementList[i].quantity) + requirementList[i].materialName + "\n");
+	
+		requirementsInText = FText::FromString(requirementsString); 
+	}
+
