@@ -30,6 +30,12 @@ void UCrafterComponent::BeginPlay()
 	Initialize();
 }
 
+void UCrafterComponent::InitializeComponent()
+{
+	Super::InitializeComponent();
+
+}
+
 // Called every frame
 void UCrafterComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -102,5 +108,4 @@ void UCrafterComponent::CreateCraftedItem(UBaseCraftedItem* pBaseCraftedItem)
 		}
 	}
 }
-
 

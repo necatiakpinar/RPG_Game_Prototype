@@ -7,7 +7,7 @@
 #include "RPG_Game_Prototype/Enums.h"
 #include "BaseCraftedItem.generated.h"
 
-
+DECLARE_MULTICAST_DELEGATE_OneParam(FWorldEvent,UWorld* World);
 
 USTRUCT(BlueprintType)
 struct FCraftedItemRequirements
@@ -48,18 +48,25 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AActor> craftedItem;
 
-
 private:
-		UPROPERTY()
-		class AMyPlayer* player;
-	
-		UPROPERTY()
-		class UCrafterComponent* crafterComponent;
+	UPROPERTY()
+	class AMyPlayer* player;
+
+	UPROPERTY()
+	class UCrafterComponent* crafterComponent;
 
 public:	
 	UFUNCTION()
 	bool CanCraftedItemCraftable();
 
-	virtual void PostLoad() override;
+	UFUNCTION(BlueprintCallable)
+	void InitializeRequirements();
+	
+	
+	// virtual void PostInitProperties() override;
+	// virtual void PostLoad() override;
+	//
+	// void OnPostWorldCreation();
+	//
 	
 };

@@ -9,7 +9,6 @@
 
 UBaseCraftedItem::UBaseCraftedItem()
 {
-	
 }
 
 bool UBaseCraftedItem::CanCraftedItemCraftable()
@@ -34,15 +33,16 @@ bool UBaseCraftedItem::CanCraftedItemCraftable()
 	return canCraftable;
 }
 
-	void UBaseCraftedItem::PostLoad()
+	void UBaseCraftedItem::InitializeRequirements()
 	{
-		UObject::PostLoad();
-
-		FString requirementsString = "";
+	FString requirementsString = "";
+        	 
+	for (int i = 0; i < requirementList.Num(); i++)
+		requirementsString.Append(FString::FromInt(requirementList[i].quantity) + requirementList[i].materialName + "\n");
+    
+	requirementsInText = FText::FromString(requirementsString);
 	
-		for (int i = 0; i < requirementList.Num(); i++)
-			requirementsString.Append(FString::FromInt(requirementList[i].quantity) + requirementList[i].materialName + "\n");
-	
-		requirementsInText = FText::FromString(requirementsString); 
 	}
+
+	
 

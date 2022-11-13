@@ -7,6 +7,16 @@
 #include "BaseCharacter.h"
 #include "MyPlayer.generated.h"
 
+// template<class T>
+// T* SpawnActor
+// (
+// 	AActor* Owner=NULL,
+// 	APawn* Instigator=NULL,
+// 	bool bNoCollisionFail=false
+// )
+// {
+// 	return (T*)(GetWorld()->SpawnActor(T::StaticClass(), NAME_None, NULL, NULL, NULL, bNoCollisionFail, false, Owner, Instigator));
+// }
 
 UCLASS(config=Game)
 class RPG_GAME_PROTOTYPE_API AMyPlayer : public ABaseCharacter

@@ -11,7 +11,6 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCrafterMaterialsUpdated);
 
-
 USTRUCT(BlueprintType)
 struct FCraftMaterialProperties
 {
@@ -39,7 +38,6 @@ struct FCraftMaterialProperties
 		materialType = pMaterialType;
 		materialQuantity = pMaterialQuantity;
 	}
-	
 	
 };
 
@@ -71,6 +69,8 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	virtual void InitializeComponent() override;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -88,4 +88,5 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void CreateCraftedItem(class UBaseCraftedItem* pBaseCraftedItem);
+	
 };

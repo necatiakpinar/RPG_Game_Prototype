@@ -25,7 +25,6 @@ AMyPlayer::AMyPlayer()
 	Attributes.health = 1000.f;
 	inventoryComponent = CreateDefaultSubobject<UInventoryComponent>("Inventory");
 	inventoryComponent->capacity = 20;
-	
 }
 
 void AMyPlayer::PostInitializeComponents()
