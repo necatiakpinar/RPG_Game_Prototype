@@ -2,7 +2,13 @@
 
 
 #include "InventoryComponent.h"
+
+#include "CraftedInventoryItem.h"
 #include "Item.h"
+#include "RPG_Game_Prototype/BaseCharacter.h"
+#include "RPG_Game_Prototype/Crafting/BaseCraftedItem.h"
+#include "RPG_Game_Prototype/Interfaces/Craftable.h"
+#include "RPG_Game_Prototype/Interfaces/Equippable.h"
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
@@ -13,6 +19,8 @@ UInventoryComponent::UInventoryComponent()
 void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	owner = Cast<ABaseCharacter>(GetOwner());
 	
 	for (auto& item : defaultItems)
 	{
@@ -52,5 +60,17 @@ bool UInventoryComponent::RemoveItem(UItem* pItem)
 		return true;
 	}
 	return false;
+}
+
+void UInventoryComponent::EquipItem(UItem* pItem)
+{
+	UCraftedInventoryItem* craftedInventoryItem = Cast<UCraftedInventoryItem>(pItem);
+
+	if (craftedInventoryItem)
+	{
+		IEquippable* equippableItem = GetWorld()->SpawnActor<IEquippable>(craftedInventoryItem->craftedItemBP);
+		if (equippableItem)
+			equippableItem->Equip(owner);
+	}
 }
 

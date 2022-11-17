@@ -20,4 +20,16 @@ ABaseWeapon::ABaseWeapon()
 	mesh->CastShadow = false;
 }
 
+void ABaseWeapon::BeginPlay()
+{
+	Super::BeginPlay();
+	InitializeReferences();
+}
+
+void ABaseWeapon::InitializeReferences()
+{
+	owner = Cast<ABaseCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	weaponHandlerComponent = owner->weaponHandlerComponentImplemented; 
+}
+
 

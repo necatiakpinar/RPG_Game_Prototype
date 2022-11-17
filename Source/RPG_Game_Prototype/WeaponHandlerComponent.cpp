@@ -28,7 +28,7 @@ void UWeaponHandlerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	InitializeReferences();
-	CreateMeleeWeapon();
+	//CreateMeleeWeapon();
 	//CreateRangedWeapon();
 }
 

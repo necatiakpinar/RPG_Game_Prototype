@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "Craftable.generated.h"
+#include "Equippable.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UCraftable : public UInterface
+class UEquippable : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -16,13 +16,11 @@ class UCraftable : public UInterface
 /**
  * 
  */
-class RPG_GAME_PROTOTYPE_API ICraftable
+class RPG_GAME_PROTOTYPE_API IEquippable
 {
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-
-	virtual void InitializeCraftable(class ABaseCharacter* pOwner) = 0;
-
+	virtual void Equip(class ABaseCharacter* pOwner) = 0;
 };

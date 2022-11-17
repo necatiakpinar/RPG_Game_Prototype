@@ -48,7 +48,6 @@ public:
 	
 private:
 	FTimerHandle timerHandler;
-	class ABaseCharacter* owner;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -57,11 +56,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void InitializeReferences();
+	virtual bool CanAttack() override;
 	virtual void InitializeCraftable(class ABaseCharacter* pOwner) override;
+	virtual void Equip(ABaseCharacter* pOwner) override;
 	
 	void Shoot(FVector pCrossHairLocation);
 	void SpawnProjectile(const FVector& pCrossHairLocation);
 	void ReloadAmmo();
-	virtual bool CanAttack() override;
 };

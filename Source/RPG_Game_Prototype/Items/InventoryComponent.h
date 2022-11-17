@@ -34,9 +34,15 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+private:
+	class ABaseCharacter* owner;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	bool AddItem(class UItem* pItem);
 	bool RemoveItem(class UItem* pItem);
+
+	UFUNCTION(BlueprintCallable)
+	void EquipItem(UItem* pItem);
 };

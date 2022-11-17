@@ -32,10 +32,6 @@ void ABaseRangedWeapon::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ABaseRangedWeapon::InitializeReferences()
-{
-	owner = Cast<ABaseCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
-}
 
 void ABaseRangedWeapon::Shoot(FVector pCrossHairLocation)
 {
@@ -100,4 +96,8 @@ void ABaseRangedWeapon::InitializeCraftable(ABaseCharacter* pOwner)
 	FRangedWeaponAttributes rangedWeaponAttributes = pOwner->weaponHandlerComponentImplemented->rangedWeaponAttributes;
 	this->AttachToComponent(pOwner->GetMesh(),FAttachmentTransformRules::SnapToTargetIncludingScale,rangedWeaponAttributes.socketRRifleName);
 	UE_LOG(LogTemp, Warning, TEXT("This weapon is craftable!"));
+}
+
+void ABaseRangedWeapon::Equip(ABaseCharacter* pOwner)
+{
 }

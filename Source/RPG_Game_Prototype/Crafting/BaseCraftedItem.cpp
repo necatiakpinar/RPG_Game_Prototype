@@ -13,9 +13,6 @@ UBaseCraftedItem::UBaseCraftedItem()
 
 bool UBaseCraftedItem::CanCraftedItemCraftable()
 {
-	//TODO: Create initialize for each instance!
-	player = Cast<AMyPlayer>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	crafterComponent = player->crafterComponentImplemented;
 	
 	for (FCraftedItemRequirements itemRequirements : requirementList)
 	{
@@ -33,16 +30,17 @@ bool UBaseCraftedItem::CanCraftedItemCraftable()
 	return canCraftable;
 }
 
-	void UBaseCraftedItem::InitializeRequirements()
+	void UBaseCraftedItem::InitializeCraftedItem()
 	{
-	FString requirementsString = "";
-        	 
-	for (int i = 0; i < requirementList.Num(); i++)
-		requirementsString.Append(FString::FromInt(requirementList[i].quantity) + requirementList[i].materialName + "\n");
-    
-	requirementsInText = FText::FromString(requirementsString);
 	
+		FString requirementsString = "";
+        		 
+		for (int i = 0; i < requirementList.Num(); i++)
+			requirementsString.Append(FString::FromInt(requirementList[i].quantity) + requirementList[i].materialName + "\n");
+	    
+		requirementsInText = FText::FromString(requirementsString);
 	}
 
+	
 	
 

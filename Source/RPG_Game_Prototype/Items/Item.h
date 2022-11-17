@@ -41,8 +41,9 @@ public:
 	UPROPERTY() class UInventoryComponent* owningInventory;
 
 public:
-	virtual void Use(class AMyPlayer* pCharacter);
+	virtual void Use(class AMyPlayer* pCharacter) PURE_VIRTUAL(,);
 	virtual class UWorld* GetWorld() const { return world; };
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUse(class AMyPlayer* pCharacter);
 		

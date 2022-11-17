@@ -17,17 +17,11 @@ ABaseMeleeWeapon::ABaseMeleeWeapon()
 void ABaseMeleeWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-	InitializeReferences();
 }
 
 void ABaseMeleeWeapon::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-}
-
-void ABaseMeleeWeapon::InitializeReferences()
-{
-	owner = Cast<ABaseCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
 }
 
 bool ABaseMeleeWeapon::CanAttack()
@@ -49,6 +43,14 @@ void ABaseMeleeWeapon::InitializeCraftable(ABaseCharacter* pOwner)
 	this->AttachToComponent(pOwner->GetMesh(),FAttachmentTransformRules::SnapToTargetIncludingScale,meleeWeaponAttributes.socketRMeleeBasicAxeName);
 	UE_LOG(LogTemp, Warning, TEXT("This weapon is craftable!"));
 	//TODO: Add this weapon into weapon list on weapon component!
+}
+
+void ABaseMeleeWeapon::Equip(ABaseCharacter* pOwner)
+{
+	FMeleeWeaponAttributes meleeWeaponAttributes = owner->weaponHandlerComponentImplemented->meleeWeaponAttributes;
+	this->AttachToComponent(pOwner->GetMesh(),FAttachmentTransformRules::SnapToTargetIncludingScale,meleeWeaponAttributes.socketRMeleeBasicAxeName);
+	UE_LOG(LogTemp, Warning, TEXT("This weapon is craftable!"));
+	weaponHandlerComponent->AssignWeapon(this);
 }
 
 void ABaseMeleeWeapon::Hit()

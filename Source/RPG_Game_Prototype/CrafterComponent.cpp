@@ -57,13 +57,7 @@ void UCrafterComponent::Initialize()
 
 	//Initialize the references
 	owner = Cast<ABaseCharacter>(GetOwner());
-
-	// if (craftedItemBP)
-	// {
-	// 	CreateCraftedItem(craftedItemBP);
-	// 	// if (craftedItemBP->canCraftable)
-	// 	// 	UE_LOG(LogTemp, Warning, TEXT(" GIRDI! %s"), ( craftedItemBP->canCraftable ? TEXT("true") : TEXT("false") ));
-	// }
+	
 }
 
 FCraftMaterialProperties UCrafterComponent::GetCraftMaterialProperties(ECraftMaterial pMaterialType)
@@ -94,18 +88,13 @@ void UCrafterComponent::DecreaseMaterialQuantity(ECraftMaterial pMaterialType, i
 }
 
 //TODO: I need to create reference to the inventory, right now I'm directly creating the item and giving the players hands
-void UCrafterComponent::CreateCraftedItem(UBaseCraftedItem* pBaseCraftedItem)
+void UCrafterComponent::CreateCraftedItem(TSubclassOf<AActor> pCraftedItem)
 {
-	if (pBaseCraftedItem)
+	if (pCraftedItem)
 	{
-		if (pBaseCraftedItem->craftedItem)
-		{
-			ICraftable* craftableItem = GetWorld()->SpawnActor<ICraftable>(pBaseCraftedItem->craftedItem);
-			if (craftableItem)
-			{
-				craftableItem->InitializeCraftable(owner);
-			}
-		}
+		ICraftable* craftableItem = GetWorld()->SpawnActor<ICraftable>(pCraftedItem);
+		if (craftableItem)
+			craftableItem->InitializeCraftable(owner);
 	}
 }
 

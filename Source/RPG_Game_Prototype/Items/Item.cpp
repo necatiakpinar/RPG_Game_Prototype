@@ -10,9 +10,6 @@ UItem::UItem()
 	useActionText = FText::FromString("Use");
 }
 
-void UItem::Use(AMyPlayer* pCharacter)
-{
-	UE_LOG(LogTemp, Warning, TEXT("LOKKA"));
-}
+
 
 

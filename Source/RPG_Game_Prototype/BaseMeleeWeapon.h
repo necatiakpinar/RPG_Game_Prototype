@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BaseWeapon.h"
+#include "WeaponHandlerComponent.h"
 #include "RPG_Game_Prototype/Interfaces/Craftable.h"
 #include "BaseMeleeWeapon.generated.h"
 
@@ -19,19 +20,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float energyPerHit; //TODO: Create energy in base character. It will decrease after every hit. If there is not hit increase energy to max.
 	
-private:
-	ABaseCharacter* owner;
-	
 public:
 	ABaseMeleeWeapon();
 	virtual void InitializeCraftable(class ABaseCharacter* pOwner) override;
+	virtual void Equip(ABaseCharacter* pOwner) override;
 	void Hit();
 	virtual bool CanAttack() override;
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-
-	void InitializeReferences();
 	
 };
 

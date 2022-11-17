@@ -87,6 +87,7 @@ public:
 	void DecreaseMaterialQuantity(ECraftMaterial pMaterialType, int32 pDecreaseAmount = 1);
 
 	UFUNCTION(BlueprintCallable)
-	void CreateCraftedItem(class UBaseCraftedItem* pBaseCraftedItem);
+	void CreateCraftedItem(TSubclassOf<AActor> pCraftedItem);
+	
 	
 };

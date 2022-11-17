@@ -60,8 +60,7 @@ public:
 	bool CanCraftedItemCraftable();
 
 	UFUNCTION(BlueprintCallable)
-	void InitializeRequirements();
-	
+	void InitializeCraftedItem();
 	
 	// virtual void PostInitProperties() override;
 	// virtual void PostLoad() override;
